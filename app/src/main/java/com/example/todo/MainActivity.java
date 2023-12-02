@@ -1,20 +1,19 @@
 package com.example.todo;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.todo.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,10 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // Create an intent to start the new activity
+                Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
+                // Start the new activity
+                startActivity(intent);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
