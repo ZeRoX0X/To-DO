@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView"
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+
+        <EditText
+            android:id="@+id/newAppointmentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:background="#92BEEA"
+            android:hint="new appointment"
+            android:inputType="text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <EditText
+            android:id="@+id/AppointmentWith"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="The appointment is with ..."
+            android:layout_below="@+id/newAppointmentText"
+            android:background="#92BEEA"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/AppointmentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Date"
+            android:background="#92BEEA"
+            android:layout_below="@+id/AppointmentWith"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:inputType="datetime"/>
+
+        <Button
+            android:id="@+id/AppointmentDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/AppointmentDate"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:background="#253ACC"
+            android:text="Change Date"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/AppointmentTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:hint="Time"
+            android:background="#92BEEA"
+            android:layout_below="@+id/AppointmentDateButton"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:inputType="datetime"/>
+
+        <Button
+            android:id="@+id/AppointmentTimeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/AppointmentTime"
+            android:layout_alignParentEnd="true"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:text="Change Time"
+            android:textAllCaps="false"/>
+
+    </RelativeLayout>
+
+
+
+    <Button
+        android:id="@+id/newAppointmentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the NewTask Activity"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@+id/layout"
+        android:layout_alignParentEnd="true"
+        android:textSize="16dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Save"
+        android:textAllCaps="false"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
