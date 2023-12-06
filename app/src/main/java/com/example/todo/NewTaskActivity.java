@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -16,9 +17,9 @@ import com.example.todo.databinding.ActivityNewTaskBinding;
 public class NewTaskActivity extends AppCompatActivity {
     // New ---
     private TextView textDate;
-    private Button date;
+    private ImageButton date;
     private TextView textTime;
-    private Button time;
+    private ImageButton time;
 
 
     private ActivityNewTaskBinding binding;
@@ -60,7 +61,7 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+              openDialogTime();
 
             }
         });
@@ -90,7 +91,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
             }
         }, 10, 00, true);
-
+      dialogTime.show();
     }
 }
 
