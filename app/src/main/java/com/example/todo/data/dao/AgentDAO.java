@@ -11,7 +11,7 @@ import com.example.todo.data.models.Agent;
 public class AgentDAO {
 
     // Database helper instance
-    private AppointmentDBHelper dbHelper;
+    private final AppointmentDBHelper dbHelper;
 
     // Constructor
     public AgentDAO(Context context) {

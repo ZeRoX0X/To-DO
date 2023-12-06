@@ -13,7 +13,7 @@ import com.example.todo.data.models.Dependency;
 public class AppointmentDAO {
 
     // Database helper instance
-    private AppointmentDBHelper dbHelper;
+    private final AppointmentDBHelper dbHelper;
 
     // Constructor
     public AppointmentDAO(Context context) {
@@ -31,7 +31,6 @@ public class AppointmentDAO {
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
         values.put("start_datetime", appointment.getStart_datetime());
-        values.put("end_datetime", appointment.getEnd_datetime());
         values.put("reminder_datetime", appointment.getReminder_datetime());
         values.put("stat", appointment.getStat());
 
@@ -75,7 +74,6 @@ public class AppointmentDAO {
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
         values.put("start_datetime", appointment.getStart_datetime());
-        values.put("end_datetime", appointment.getEnd_datetime());
         values.put("reminder_datetime", appointment.getReminder_datetime());
         values.put("stat", appointment.getStat());
         values.put("dependency_id", appointment.getDependency_id());

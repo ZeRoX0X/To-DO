@@ -11,7 +11,7 @@ import com.example.todo.data.models.Dependency;
 public class DependencyDAO {
 
     // Database helper instance
-    private AppointmentDBHelper dbHelper;
+    private final AppointmentDBHelper dbHelper;
 
     // Constructor
     public DependencyDAO(Context context) {
@@ -73,6 +73,6 @@ public class DependencyDAO {
         return rows;
     }
 
-    // Other query methods can go here
+
 }
 
