@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.todo.databinding.ActivityNewTaskBinding;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class NewTaskActivity extends AppCompatActivity {
     // New ---
@@ -20,6 +22,9 @@ public class NewTaskActivity extends AppCompatActivity {
     private ImageButton date;
     private TextView textTime;
     private ImageButton time;
+
+    private Switch switchReminder;
+    private TextView textReminder;
 
 
     private ActivityNewTaskBinding binding;
@@ -66,6 +71,20 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
 
+        // New ---
+        switchReminder = findViewById(R.id.switch1);
+        switchReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (switchReminder.isChecked()){
+
+                    openDialogTimeReminder();
+
+                }
+            }
+        });
+
+
     }
 
     // New ---
@@ -92,6 +111,19 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         }, 10, 00, true);
       dialogTime.show();
+    }
+
+    private void openDialogTimeReminder(){
+
+        TimePickerDialog dialogReminder = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hours, int minutes) {
+
+                textReminder.setText(String.valueOf(hours)+":"+String.valueOf(minutes));
+
+            }
+        }, 10, 00, true);
+        dialogReminder.show();
     }
 }
 
