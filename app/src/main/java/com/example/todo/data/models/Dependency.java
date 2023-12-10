@@ -4,14 +4,19 @@ package com.example.todo.data.models;
 public class Dependency {
     // Fields
     private int id;
-    private String place;
-    private String desc;
+    private String dependency_name;
+    private String category;
 
     // Constructor
-    public Dependency(int id, String place, String desc) {
+    public Dependency(int id, String dependency_name, String category) {
         this.id = id;
-        this.place = place;
-        this.desc = desc;
+        this.dependency_name = dependency_name;
+        this.category = category;
+    }
+
+    public Dependency(String dependency_name, String category) {
+        this.dependency_name = dependency_name;
+        this.category = category;
     }
 
     // Getters and setters
@@ -23,20 +28,20 @@ public class Dependency {
         this.id = id;
     }
 
-    public String getPlace() {
-        return place;
+    public String getDependency_name() {
+        return dependency_name;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setDependency_name(String dependency_name) {
+        this.dependency_name = dependency_name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getCategory() {
+        return category;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
 

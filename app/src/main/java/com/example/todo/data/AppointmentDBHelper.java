@@ -1,90 +1,91 @@
 package com.example.todo.data;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import androidx.annotation.Nullable;
 
 public class AppointmentDBHelper  extends SQLiteOpenHelper {
 
-    // Define the database name and version
-    public static final String DATABASE_NAME = "contacts.db";
+    //  database name and version
+    public static final String DATABASE_NAME = "events.db";
     public static final int DATABASE_VERSION = 1;
 
-    // Define the path to the assets folder
-    public static final String ASSETS_PATH = "databases";
-    private final Context context;
+    //constants for the table names and column names
 
-    // Create a constructor that takes a context as a parameter
-    public AppointmentDBHelper(Context context) {
+    public static final String TABLE_DEPENDENCY = "dependency";
+
+    public static final String DEPENDENCY_ID = "dependency_id";
+    private static final String DEPENDENCY_NAME ="dependency_name" ;
+    private static final String DEPENDENCY_CATEGORY ="dependency_category" ;
+    public static final String TABLE_AGENT = "agent";
+
+
+    private static final String AGENT_ID = "agent_id";
+    private static final String AGENT_NAME = "agent_name";
+    private static final String AGENT_CATEGORY = "agent_category";
+    private static final String AGENT_PHONE_NUMBER = "agent_phone_number";
+
+
+    public static final String TABLE_APPOINTMENT = "appointment";
+
+    private static final String APPOINTMENT_ID = "appointment_id";
+    public static final String APPOINTMENT_START_DATETIME = "start_datetime";
+    public static final String APPOINTMENT_REMINDER_DATETIME = "reminder_datetime";
+    public static final String APPOINTMENT_STAT = "stat";
+    public static final String APPOINTMENT_DEPENDENCY_ID = "dependency_id";
+    public static final String APPOINTMENT_AGENT_ID = "agent_id";
+
+    // Declare a private constructor to prevent direct instantiation
+    public AppointmentDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        // Assign the context to the field
-        this.context = context;
+
     }
 
-    // Override the onCreate method to copy the database from the assets folder
+    // Override the onCreate method to create database tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Copy the database file from the assets folder
-        try {
-            copyDatabaseFromAssets(db);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        // Create the dependency table
+        String CREATE_TABLE_DEPENDENCY = "CREATE TABLE IF NOT EXISTS " + TABLE_DEPENDENCY + " (" +
+                DEPENDENCY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DEPENDENCY_NAME + " TEXT NOT NULL, " +
+                DEPENDENCY_CATEGORY + " TEXT" +
+                ");";
+
+        // Create the agent table
+        String CREATE_TABLE_AGENT = "CREATE TABLE IF NOT EXISTS " + TABLE_AGENT + " (" +
+                AGENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                AGENT_NAME + " TEXT NOT NULL, " +
+                AGENT_CATEGORY + " TEXT, " +
+                AGENT_PHONE_NUMBER + " TEXT" +
+                ");";
+
+        // Create the appointment table
+        String CREATE_TABLE_APPOINTMENT = "CREATE TABLE IF NOT EXISTS " + TABLE_APPOINTMENT + " (" +
+                APPOINTMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                APPOINTMENT_START_DATETIME + " TEXT NOT NULL, " +
+                APPOINTMENT_REMINDER_DATETIME + " TEXT, " +
+                APPOINTMENT_STAT + " TEXT NOT NULL, " +
+                APPOINTMENT_DEPENDENCY_ID + " INTEGER NOT NULL, " +
+                APPOINTMENT_AGENT_ID + " INTEGER NOT NULL, " +
+                "FOREIGN KEY (" + APPOINTMENT_DEPENDENCY_ID + ") REFERENCES " + TABLE_DEPENDENCY + " (" + DEPENDENCY_ID + "), " +
+                "FOREIGN KEY (" + APPOINTMENT_AGENT_ID + ") REFERENCES " + TABLE_AGENT + " (" + DEPENDENCY_ID + ")" +
+                ");";
+
+        // Execute the SQL statements
+        db.execSQL(CREATE_TABLE_DEPENDENCY);
+        db.execSQL(CREATE_TABLE_AGENT);
+        db.execSQL(CREATE_TABLE_APPOINTMENT);
     }
 
     // Override the onUpgrade method to drop and recreate the database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Delete the existing database file
-        deleteDatabaseFile(db);
-        // Copy the database file from the assets folder
-        try {
-            copyDatabaseFromAssets(db);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        // Drop the existing tables
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEPENDENCY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AGENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_APPOINTMENT);
 
-    // A helper method to copy the database file from the assets folder
-    // A helper method to copy the database file from the assets folder
-    private void copyDatabaseFromAssets(SQLiteDatabase db) throws IOException {
-        // Get the file object of the database file in the internal storage
-        File file = context.getDatabasePath(DATABASE_NAME);
-        // Check if the file does not exist
-        if (!file.exists()) {
-            // Get the input stream of the database file from the assets folder
-            InputStream inputStream = context.getAssets().open(ASSETS_PATH + File.separator + DATABASE_NAME);
-            // Get the output stream of the database file in the internal storage
-            OutputStream outputStream = new FileOutputStream(db.getPath());
-            // Copy the bytes from the input stream to the output stream
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
-            }
-            // Close the streams
-            outputStream.flush();
-            outputStream.close();
-            inputStream.close();
-        }
-    }
-
-
-    // A helper method to delete the database file in the internal storage
-    private void deleteDatabaseFile(SQLiteDatabase db) {
-
-        // Get the file object of the database file
-        File file = context.getDatabasePath(DATABASE_NAME);
-        // Delete the file if it exists
-        if (file.exists()) {
-            file.delete();
-        }
+        // Recreate the tables
+        onCreate(db);
     }
 }

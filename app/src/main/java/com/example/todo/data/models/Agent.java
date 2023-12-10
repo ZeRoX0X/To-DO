@@ -4,15 +4,21 @@ package com.example.todo.data.models;
 public class Agent {
     // Fields
     private int id;
-    private String name;
-    private String desc;
+    private String agent_name;
+    private String category;
     private String phone_number;
 
     // Constructor
-    public Agent(int id, String name, String desc, String phone_number) {
+    public Agent(int id, String agent_name, String category, String phone_number) {
         this.id = id;
-        this.name = name;
-        this.desc = desc;
+        this.agent_name = agent_name;
+        this.category = category;
+        this.phone_number = phone_number;
+    }
+
+    public Agent(String agent_name, String category, String phone_number) {
+        this.agent_name = agent_name;
+        this.category = category;
         this.phone_number = phone_number;
     }
 
@@ -25,20 +31,20 @@ public class Agent {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAgent_name() {
+        return agent_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAgent_name(String agent_name) {
+        this.agent_name = agent_name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getCategory() {
+        return category;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getPhone_number() {

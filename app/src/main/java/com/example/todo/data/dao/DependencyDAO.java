@@ -10,6 +10,9 @@ import com.example.todo.data.models.Dependency;
 // DependencyDAO class
 public class DependencyDAO {
 
+    public static final String DEPENDENCY_NAME = "name";
+    public static final String CATEGORY = "category";
+    public static final String DEPENDENCY = "dependency";
     // Database helper instance
     private final AppointmentDBHelper dbHelper;
 
@@ -19,17 +22,17 @@ public class DependencyDAO {
     }
 
     // Method to insert a new dependency
-    public long insertDependency(Dependency dependency) {
+    public int insertDependency(Dependency dependency) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
-        values.put("place", dependency.getPlace());
-        values.put("desc", dependency.getDesc());
+        values.put(DEPENDENCY_NAME, dependency.getDependency_name());
+        values.put(CATEGORY, dependency.getCategory());
 
         // Insert the row and return the id
-        long id = db.insert("dependency", null, values);
+        int id = (int) db.insert(DEPENDENCY, null, values);
 
         // Close the database
         db.close();
@@ -45,11 +48,11 @@ public class DependencyDAO {
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
-        values.put("place", dependency.getPlace());
-        values.put("desc", dependency.getDesc());
+        values.put(DEPENDENCY_NAME, dependency.getDependency_name());
+        values.put(CATEGORY, dependency.getCategory());
 
         // Update the row and return the number of affected rows
-        int rows = db.update("dependency", values, "id = ?", new String[]{String.valueOf(dependency.getId())});
+        int rows = db.update(DEPENDENCY, values, "id = ?", new String[]{String.valueOf(dependency.getId())});
 
         // Close the database
         db.close();
@@ -64,7 +67,7 @@ public class DependencyDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Delete the row and return the number of affected rows
-        int rows = db.delete("dependency", "id = ?", new String[]{String.valueOf(id)});
+        int rows = db.delete(DEPENDENCY, "id = ?", new String[]{String.valueOf(id)});
 
         // Close the database
         db.close();

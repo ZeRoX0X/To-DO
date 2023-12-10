@@ -10,6 +10,23 @@ public class Appointment {
     private String stat;
     private int dependency_id;
     private int agent_id;
+    private String agent_name;
+    private String dependency_name;
+    private String agent_category;
+    private String dependency_category;
+
+    public Appointment(int id, String start_datetime, String reminder_datetime, String stat, int dependency_id, int agent_id, String agent_name, String dependency_name, String agent_category, String dependency_category) {
+        this.id = id;
+        this.start_datetime = start_datetime;
+        this.reminder_datetime = reminder_datetime;
+        this.stat = stat;
+        this.dependency_id = dependency_id;
+        this.agent_id = agent_id;
+        this.agent_name = agent_name;
+        this.dependency_name = dependency_name;
+        this.agent_category = agent_category;
+        this.dependency_category = dependency_category;
+    }
 
     // Constructor
     public Appointment(int id, String start_datetime,  String reminder_datetime, String stat, int dependency_id, int agent_id) {
@@ -19,6 +36,13 @@ public class Appointment {
         this.stat = stat;
         this.dependency_id = dependency_id;
         this.agent_id = agent_id;
+    }
+
+    public Appointment(String start_datetime, String reminder_datetime, String stat) {
+        this.start_datetime = start_datetime;
+        this.reminder_datetime = reminder_datetime;
+        this.stat = stat;
+
     }
 
     // Getters and setters
