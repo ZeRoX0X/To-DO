@@ -15,6 +15,18 @@
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_menu_checkmarkcircle"
-            android:title="@string/menu_tasks" />
+            android:title="My appointments" />
+        <item
+            android:id="@+id/nav_deleted"
+            android:icon="@drawable/baseline_auto_delete_24"
+            android:title="Appointments deleted" />
+        <item
+            android:id="@+id/nav_postponed"
+            android:icon="@drawable/baseline_schedule_24"
+            android:title="Appointments postponed" />
+        <item
+            android:id="@+id/nav_themes"
+            android:icon="@drawable/baseline_color_lens_24"
+            android:title="Themes" />
     </group>
 </menu>
