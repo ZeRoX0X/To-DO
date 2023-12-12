@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
-public class AppointmentDBHelper  extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     //  database name and version
     public static final String DATABASE_NAME = "events.db";
@@ -15,28 +15,28 @@ public class AppointmentDBHelper  extends SQLiteOpenHelper {
     public static final String TABLE_DEPENDENCY = "dependency";
 
     public static final String DEPENDENCY_ID = "dependency_id";
-    private static final String DEPENDENCY_NAME ="dependency_name" ;
-    private static final String DEPENDENCY_CATEGORY ="dependency_category" ;
+    public static final String DEPENDENCY_NAME ="dependency_name" ;
+    public static final String DEPENDENCY_CATEGORY ="dependency_category" ;
     public static final String TABLE_AGENT = "agent";
 
 
-    private static final String AGENT_ID = "agent_id";
-    private static final String AGENT_NAME = "agent_name";
-    private static final String AGENT_CATEGORY = "agent_category";
-    private static final String AGENT_PHONE_NUMBER = "agent_phone_number";
+    public static final String AGENT_ID = "agent_id";
+    public static final String AGENT_NAME = "agent_name";
+    public static final String AGENT_CATEGORY = "agent_category";
+    public static final String AGENT_PHONE_NUMBER = "agent_phone_number";
 
 
     public static final String TABLE_APPOINTMENT = "appointment";
 
-    private static final String APPOINTMENT_ID = "appointment_id";
+    public static final String APPOINTMENT_ID = "appointment_id";
     public static final String APPOINTMENT_START_DATETIME = "start_datetime";
     public static final String APPOINTMENT_REMINDER_DATETIME = "reminder_datetime";
     public static final String APPOINTMENT_STAT = "stat";
-    public static final String APPOINTMENT_DEPENDENCY_ID = "dependency_id";
-    public static final String APPOINTMENT_AGENT_ID = "agent_id";
+    public static final String APPOINTMENT_DEPENDENCY_ID = "appointment_dependency_id";
+    public static final String APPOINTMENT_AGENT_ID = "appointment_agent_id";
 
-    // Declare a private constructor to prevent direct instantiation
-    public AppointmentDBHelper(@Nullable Context context) {
+    // Public constructor
+    public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }

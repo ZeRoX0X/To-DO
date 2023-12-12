@@ -4,38 +4,36 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.todo.data.AppointmentDBHelper;
+import com.example.todo.data.DBHelper;
 import com.example.todo.data.models.Dependency;
 
 // DependencyDAO class
 public class DependencyDAO {
 
-    public static final String DEPENDENCY_NAME = "name";
-    public static final String CATEGORY = "category";
-    public static final String DEPENDENCY = "dependency";
+
     // Database helper instance
-    private final AppointmentDBHelper dbHelper;
+    private final DBHelper dbHelper;
 
     // Constructor
     public DependencyDAO(Context context) {
-        dbHelper = new AppointmentDBHelper(context);
+        dbHelper = new DBHelper(context);
     }
 
     // Method to insert a new dependency
-    public int insertDependency(Dependency dependency) {
+    public int insertDependency(Dependency dependency, SQLiteDatabase db) {
         // Get a writable database
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        //SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
-        values.put(DEPENDENCY_NAME, dependency.getDependency_name());
-        values.put(CATEGORY, dependency.getCategory());
+        values.put(DBHelper.DEPENDENCY_NAME, dependency.getDependency_name());
+        values.put(DBHelper.DEPENDENCY_CATEGORY, dependency.getCategory());
 
         // Insert the row and return the id
-        int id = (int) db.insert(DEPENDENCY, null, values);
+        int id = (int) db.insert(DBHelper.TABLE_DEPENDENCY, null, values);
 
         // Close the database
-        db.close();
+       // db.close();
 
         // Return the id
         return id;
@@ -48,11 +46,11 @@ public class DependencyDAO {
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
-        values.put(DEPENDENCY_NAME, dependency.getDependency_name());
-        values.put(CATEGORY, dependency.getCategory());
+        values.put(DBHelper.DEPENDENCY_NAME, dependency.getDependency_name());
+        values.put(DBHelper.DEPENDENCY_CATEGORY, dependency.getCategory());
 
         // Update the row and return the number of affected rows
-        int rows = db.update(DEPENDENCY, values, "id = ?", new String[]{String.valueOf(dependency.getId())});
+        int rows = db.update(DBHelper.TABLE_DEPENDENCY, values, DBHelper.DEPENDENCY_ID + " = ?", new String[]{String.valueOf(dependency.getId())});
 
         // Close the database
         db.close();
@@ -62,15 +60,15 @@ public class DependencyDAO {
     }
 
     // Method to delete an existing dependency
-    public int deleteDependency(int id) {
+    public int deleteDependency(int id,SQLiteDatabase db) {
         // Get a writable database
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+       // SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Delete the row and return the number of affected rows
-        int rows = db.delete(DEPENDENCY, "id = ?", new String[]{String.valueOf(id)});
+        int rows = db.delete(DBHelper.TABLE_DEPENDENCY, DBHelper.DEPENDENCY_ID + " = ?", new String[]{String.valueOf(id)});
 
         // Close the database
-        db.close();
+        //db.close();
 
         // Return the number of affected rows
         return rows;
