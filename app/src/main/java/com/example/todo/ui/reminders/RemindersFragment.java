@@ -1,4 +1,4 @@
-package com.example.todo.ui.slideshow;
+package com.example.todo.ui.reminders;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.todo.databinding.FragmentSlideshowBinding;
+import com.example.todo.databinding.FragmentRemindersBinding;
 
-public class SlideshowFragment extends Fragment {
+public class RemindersFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentRemindersBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        RemindersViewModel remindersViewModel =
+                new ViewModelProvider(this).get(RemindersViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentRemindersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textReminders;
+        remindersViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
