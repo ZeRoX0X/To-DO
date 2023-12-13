@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Create an intent to start the new activity
-                Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
                 // Start the new activity
                 startActivity(intent);
             }
