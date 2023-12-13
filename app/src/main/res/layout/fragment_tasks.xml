@@ -15,8 +15,21 @@
         android:text="My Appointments Today"
         android:textSize="32dp"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/text_tasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+   <!-- <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskRecycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +39,7 @@
         android:layout_marginRight="15dp"
         android:nestedScrollingEnabled="true"
         app:laypoutManager="android.recyclerview.widget.LinearLayoutManager" />
-
+-->
 
 
 </RelativeLayout>

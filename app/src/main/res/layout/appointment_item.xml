@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Use a LinearLayout as the root element and set its orientation to vertical -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Use a TextView to display the id of the appointment -->
+    <TextView
+        android:id="@+id/text_view_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: "/>
+
+    <!-- Use a TextView to display the start datetime of the appointment -->
+    <TextView
+        android:id="@+id/text_view_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start datetime: "/>
+
+    <!-- Use a TextView to display the reminder datetime of the appointment -->
+    <TextView
+        android:id="@+id/text_view_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reminder datetime: "/>
+
+    <!-- Use a TextView to display the stat of the appointment -->
+    <TextView
+        android:id="@+id/text_view_stat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stat: "/>
+
+    <!-- Use a TextView to display the name of the agent -->
+
+
+    <TextView
+        android:id="@+id/text_view_agent_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agent name: "/>
+
+    <!-- Use a TextView to display the category of the agent -->
+    <TextView
+        android:id="@+id/text_view_agent_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agent category: "/>
+
+    <!-- Use a TextView to display the phone number of the agent -->
+    <TextView
+        android:id="@+id/text_view_agent_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agent phone: "/>
+
+    <!-- Use a TextView to display the name of the dependency -->
+    <TextView
+        android:id="@+id/text_view_dependency_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dependency name: "/>
+
+    <!-- Use a TextView to display the category of the dependency -->
+    <TextView
+        android:id="@+id/text_view_dependency_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dependency category: "/>
+
+</LinearLayout>

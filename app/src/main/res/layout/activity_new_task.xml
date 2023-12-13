@@ -8,75 +8,91 @@
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="80dp">
 
         <EditText
-            android:id="@+id/newAppointmentText"
+            android:id="@+id/agent_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
+            android:ems="10"
             android:hint="new appointment"
             android:inputType="text"
-            android:ems="10"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+
         <EditText
-            android:id="@+id/AppointmentWith"
+            android:id="@+id/agent_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/newAppointmentText"
+            android:layout_below="@+id/agent_name"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:ems="10"
             android:hint="The appointment is with ..."
             android:inputType="text"
             android:minHeight="48dp"
-            android:ems="10"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
-            android:id="@+id/number"
+            android:id="@+id/agent_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/AppointmentWith"
+            android:layout_below="@+id/agent_category"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:ems="10"
             android:hint="Number"
             android:inputType="text"
             android:minHeight="48dp"
-            android:ems="10"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
-            android:id="@+id/appointmentDescription"
+            android:id="@+id/dependency_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/number"
+            android:layout_below="@+id/agent_phone"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:hint="Description"
+            android:ems="10"
+            android:hint="Dependency Name ..."
             android:inputType="text"
             android:minHeight="48dp"
-            android:ems="10"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <EditText
-            android:id="@+id/AppointmentDescription"
-            android:layout_width="wrap_content"
+            android:id="@+id/dependency_category"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/appointmentDescription"
+            android:layout_below="@+id/dependency_name"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:ems="10"
+            android:hint="Dependency Name ..."
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+        <EditText
+            android:id="@+id/AppointmentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dependency_category"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
             android:hint="Date"
             android:inputType="date"
-            android:ems="10"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
@@ -84,10 +100,10 @@
             android:id="@+id/AppointmentDateButton"
             android:layout_width="62dp"
             android:layout_height="55dp"
-            android:layout_below="@+id/AppointmentDescription"
+            android:layout_below="@+id/dependency_category"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="-57dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="46dp"
             android:layout_marginRight="30dp"
             app:srcCompat="@drawable/baseline_edit_calendar_24" />
 
@@ -95,7 +111,7 @@
             android:id="@+id/AppointmentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/AppointmentDateButton"
+            android:layout_below="@+id/AppointmentDate"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
@@ -105,73 +121,49 @@
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+
         <ImageButton
             android:id="@+id/AppointmentTimeButton"
             android:layout_width="62dp"
             android:layout_height="55dp"
-            android:layout_below="@+id/AppointmentTime"
+            android:layout_below="@+id/AppointmentDate"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="-57dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="51dp"
             app:srcCompat="@drawable/baseline_access_time_24" />
-
-        <EditText
-            android:id="@+id/ReminderTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AppointmentTimeButton"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Time"
-            android:inputType="time"
-            android:ems="10"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <ImageButton
-            android:id="@+id/ReminderTimeButton"
-            android:layout_width="62dp"
-            android:layout_height="55dp"
-            android:layout_below="@+id/ReminderTime"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-57dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginRight="30dp"
-            app:srcCompat="@drawable/baseline_access_time_24" />
-
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/reminder_switch"
             android:layout_width="wrap_content"
             android:layout_height="54dp"
-            android:onClick="onSwitchClick"
-            android:layout_below="@+id/ReminderTime"
+            android:layout_below="@+id/AppointmentTime"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="261dp"
+            android:onClick="onSwitchClick"
             android:text="Reminder" />
 
         <TextView
+            android:id="@+id/reminder_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/reminder_switch"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/switch1"
-            android:id="@+id/reminderText"
-            android:hint="Reminder is not set"
             android:layout_marginTop="-38dp"
-            android:layout_marginRight="40dp"/>
+            android:layout_marginRight="40dp"
+            android:hint="Reminder is not set" />
 
-        <Button
+        <!--<Button
             android:id="@+id/AppointmentReminderButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/switch1"
+            android:layout_below="@+id/reminder_switch"
             android:layout_alignParentEnd="true"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:text="Change Time"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"/>-->
 
     </RelativeLayout>
 
@@ -189,7 +181,7 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/layout"
