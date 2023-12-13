@@ -23,14 +23,15 @@ import com.example.todo.data.dao.DependencyDAO;
 import com.example.todo.data.models.Agent;
 import com.example.todo.data.models.Appointment;
 import com.example.todo.data.models.Dependency;
-import com.example.todo.databinding.ActivityNewTaskBinding;
+import com.example.todo.databinding.ActivityNewEventBinding;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NewُُEventActivity extends AppCompatActivity {
+public class NewEventActivity extends AppCompatActivity {
     // New ---
     private EditText appointmentDate;
     private ImageButton date;
@@ -41,13 +42,13 @@ public class NewُُEventActivity extends AppCompatActivity {
     private TextView reminderTime;
 
 
-    private ActivityNewTaskBinding binding;
+    private ActivityNewEventBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Inflate the layout using the binding class
-        binding = ActivityNewTaskBinding.inflate(getLayoutInflater());
+        binding = ActivityNewEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         // Set the title of the activity
         setTitle("New Task");
@@ -163,13 +164,13 @@ public class NewُُEventActivity extends AppCompatActivity {
                     );
 
                     // Create an instance of the AppointmentDAO class
-                    AppointmentDAO appointmentDAO = new AppointmentDAO(NewُُEventActivity.this);
+                    AppointmentDAO appointmentDAO = new AppointmentDAO(NewEventActivity.this);
 
                     // Create an instance of the AgentDAO class
-                    AgentDAO agentDAO = new AgentDAO(NewُُEventActivity.this);
+                    AgentDAO agentDAO = new AgentDAO(NewEventActivity.this);
 
                     // Create an instance of the DependencyDAO class
-                    DependencyDAO dependencyDAO = new DependencyDAO(NewُُEventActivity.this);
+                    DependencyDAO dependencyDAO = new DependencyDAO(NewEventActivity.this);
 
                     // Call the insertAppointment method and pass the objects
                     int id = appointmentDAO.insertAppointment(appointment, agent, dependency, agentDAO, dependencyDAO);
@@ -177,16 +178,16 @@ public class NewُُEventActivity extends AppCompatActivity {
                     // Check if the insertion was successful
                     if (id > 0) {
                         // Show a toast message
-                        Toast.makeText(NewُُEventActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewEventActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         // Show a toast message
-                        Toast.makeText(NewُُEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
                     }
 
 
 
                 } else {
-                    Toast.makeText(NewُُEventActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewEventActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
 
 
