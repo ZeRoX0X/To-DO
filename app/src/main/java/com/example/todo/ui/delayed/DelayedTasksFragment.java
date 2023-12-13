@@ -1,4 +1,4 @@
-package com.example.todo.ui.reminders;
+package com.example.todo.ui.delayed;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.todo.databinding.FragmentRemindersBinding;
+import com.example.todo.databinding.FragmentDelayedTasksBinding;
 
-public class RemindersFragment extends Fragment {
+public class DelayedTasksFragment extends Fragment {
 
-    private FragmentRemindersBinding binding;
+    private FragmentDelayedTasksBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        RemindersViewModel remindersViewModel =
-                new ViewModelProvider(this).get(RemindersViewModel.class);
+        DelayedTasksViewModel delayedTasksViewModel =
+                new ViewModelProvider(this).get(DelayedTasksViewModel.class);
 
-        binding = FragmentRemindersBinding.inflate(inflater, container, false);
+        binding = FragmentDelayedTasksBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textReminders;
-        remindersViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        delayedTasksViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

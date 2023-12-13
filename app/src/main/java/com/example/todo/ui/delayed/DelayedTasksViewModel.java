@@ -1,16 +1,16 @@
-package com.example.todo.ui.home;
+package com.example.todo.ui.delayed;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class DelayedTasksViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public DelayedTasksViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is delayed fragment");
     }
 
     public LiveData<String> getText() {
