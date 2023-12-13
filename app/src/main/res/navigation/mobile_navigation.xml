@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_myday">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_myday"
         android:name="com.example.todo.ui.myday.MyDayFragment"
         android:label="@string/menu_myday"
         tools:layout="@layout/fragment_my_day" />
 
     <fragment
-        android:id="@+id/nav_reminders"
+        android:id="@+id/nav_delayed"
         android:name="com.example.todo.ui.delayed.DelayedTasksFragment"
         android:label="@string/menu_reminders"
         tools:layout="@layout/fragment_delayed_tasks" />

@@ -5,13 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_myday"
             android:icon="@drawable/ic_menu_bulb"
             android:title="@string/menu_myday" />
         <item
-            android:id="@+id/nav_reminders"
-            android:icon="@drawable/ic_menu_bell"
-            android:title="@string/menu_reminders" />
+            android:id="@+id/nav_delayed"
+            android:icon="@drawable/baseline_schedule_24"
+            android:title="@string/menu_delayed" />
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_menu_checkmarkcircle"
@@ -20,10 +20,6 @@
             android:id="@+id/nav_deleted"
             android:icon="@drawable/baseline_auto_delete_24"
             android:title="Appointments deleted" />
-        <item
-            android:id="@+id/nav_postponed"
-            android:icon="@drawable/baseline_schedule_24"
-            android:title="Appointments postponed" />
         <item
             android:id="@+id/nav_themes"
             android:icon="@drawable/baseline_color_lens_24"
