@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,9 +27,10 @@ import com.example.todo.databinding.ActivityNewTaskBinding;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class NewTaskActivity extends AppCompatActivity {
+public class NewُُEventActivity extends AppCompatActivity {
     // New ---
     private EditText appointmentDate;
     private ImageButton date;
@@ -163,13 +163,13 @@ public class NewTaskActivity extends AppCompatActivity {
                     );
 
                     // Create an instance of the AppointmentDAO class
-                    AppointmentDAO appointmentDAO = new AppointmentDAO(NewTaskActivity.this);
+                    AppointmentDAO appointmentDAO = new AppointmentDAO(NewُُEventActivity.this);
 
                     // Create an instance of the AgentDAO class
-                    AgentDAO agentDAO = new AgentDAO(NewTaskActivity.this);
+                    AgentDAO agentDAO = new AgentDAO(NewُُEventActivity.this);
 
                     // Create an instance of the DependencyDAO class
-                    DependencyDAO dependencyDAO = new DependencyDAO(NewTaskActivity.this);
+                    DependencyDAO dependencyDAO = new DependencyDAO(NewُُEventActivity.this);
 
                     // Call the insertAppointment method and pass the objects
                     int id = appointmentDAO.insertAppointment(appointment, agent, dependency, agentDAO, dependencyDAO);
@@ -177,16 +177,16 @@ public class NewTaskActivity extends AppCompatActivity {
                     // Check if the insertion was successful
                     if (id > 0) {
                         // Show a toast message
-                        Toast.makeText(NewTaskActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewُُEventActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         // Show a toast message
-                        Toast.makeText(NewTaskActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewُُEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
                     }
 
 
 
                 } else {
-                    Toast.makeText(NewTaskActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewُُEventActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -198,13 +198,20 @@ public class NewTaskActivity extends AppCompatActivity {
 
     // New ---
     private void openDialogDate(){
+
+        // Get the current date from the Calendar class
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialogDate = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-                appointmentDate.setText(String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year));
+
+                appointmentDate.setText(String.format("%02d/%02d/%04d", day, month + 1, year));
             }
-        }, 2023, 0, 10);
+        }, year, month, day);
 
         dialogDate.show();
     }
@@ -215,11 +222,12 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hours, int minutes) {
 
-                appointmentTime.setText(String.valueOf(hours)+":"+String.valueOf(minutes));
+
+                appointmentTime.setText(String.format("%02d:%02d", hours, minutes));
 
             }
         }, 10, 00, true);
-      dialogTime.show();
+        dialogTime.show();
     }
 
     private void openDialogTimeReminder(){
@@ -229,12 +237,14 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hours, int minutes) {
 
-                reminderTime.setText(String.valueOf(hours)+":"+String.valueOf(minutes));
+
+                reminderTime.setText(String.format("%02d:%02d", hours, minutes));
 
             }
         }, 10, 00, true);
         dialogReminder.show();
     }
+
 
 
     // A method that converts the text view and the edit text to a datetime string
