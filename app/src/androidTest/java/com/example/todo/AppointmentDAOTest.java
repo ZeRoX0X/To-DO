@@ -53,8 +53,8 @@ public class AppointmentDAOTest {
 
     // Test the insertAppointment method
     @Test
-    public void testInsertAppointment() throws Exception {
-        appo_dao.deleteAppointment(1,1,1,dep_dao,agent_dao);
+    public void testInsertAndDeleteAppointment() throws Exception {
+
         // Create some sample data
         Appointment appointment = new Appointment("2021-12-09 10:00:00", "2021-12-09 09:00:00", "pending");
         Agent agent = new Agent("John", "sales", "1234567890");
@@ -81,10 +81,10 @@ public class AppointmentDAOTest {
 
     // Test the getAllAppointmentsInThisDay method
     @Test
-    public void testGetAllAppointmentsInThisDay() throws Exception {
+    public void testGetAllAppointmentsToDay() throws Exception {
             // Create some sample data
-            Appointment appointment1 = new Appointment("2023-12-12 11:00:00", "2021-12-09 09:00:00", "pending");
-            Appointment appointment2 = new Appointment("2023-12-12 09:00:00", "2021-12-09 10:00:00", "pending");
+            Appointment appointment1 = new Appointment("2023-12-13 11:00:00", "2021-12-09 09:00:00", "pending");
+            Appointment appointment2 = new Appointment("2023-12-13 09:00:00", "2021-12-09 10:00:00", "pending");
             Appointment appointment3 = new Appointment("2021-12-11 12:00:00", "2021-12-10 11:00:00", "done");
             Agent agent = new Agent("John", "sales", "1234567890");
             Dependency dependency = new Dependency("ABC", "retail");
@@ -93,8 +93,8 @@ public class AppointmentDAOTest {
             appo_dao.insertAppointment(appointment1, agent, dependency, agent_dao, dep_dao);
             appo_dao.insertAppointment(appointment2, agent, dependency, agent_dao, dep_dao);
             appo_dao.insertAppointment(appointment3, agent, dependency, agent_dao, dep_dao);
-        Appointment appointment1e = new Appointment(1,"2023-12-12 11:00:00", "2021-12-09 09:00:00", "pending",1,"John", "sales", "1234567890",1,"ABC", "retail");
-        Appointment appointment2e = new Appointment(2,"2023-12-12 09:00:00", "2021-12-09 10:00:00", "pending",2,"John", "sales", "1234567890",2,"ABC", "retail");
+        Appointment appointment1e = new Appointment(1,"2023-12-13 11:00:00", "2021-12-09 09:00:00", "pending",1,"John", "sales", "1234567890",1,"ABC", "retail");
+        Appointment appointment2e = new Appointment(2,"2023-12-13 09:00:00", "2021-12-09 10:00:00", "pending",2,"John", "sales", "1234567890",2,"ABC", "retail");
         Appointment appointment3e = new Appointment(3,"2021-12-11 11:00:00", "2021-12-10 11:00:00", "done",3,"John", "sales", "1234567890",3,"ABC", "retail");
 
             // Get the list of appointments for the date 2021-12-09
@@ -157,7 +157,7 @@ public class AppointmentDAOTest {
         Appointment appointment3e = new Appointment(3,"2021-12-11 11:00:00", "2021-12-10 11:00:00", "done",3,"John", "sales", "1234567890",3,"ABC", "retail");
 
         // Get the list of appointments for the date 2021-12-09
-        List<Appointment> result = appo_dao.getAllAppointmentsWithStat("pending");
+        List<Appointment> result = appo_dao.getAppointmentsByStatus("pending");
         appo_dao.deleteAppointment(1,1,1,dep_dao,agent_dao);
         appo_dao.deleteAppointment(2,2,2,dep_dao,agent_dao);
         appo_dao.deleteAppointment(3,3,3,dep_dao,agent_dao);

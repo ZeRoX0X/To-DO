@@ -40,31 +40,38 @@ public class AppointmentDAO {
         // Begin a transaction
         db.beginTransaction();
 
-        // Create a content values object to store the values
-        ContentValues appo_values = new ContentValues();
+        int id;
+        try {
 
 
-
-        // Insert the dependency data and get the id
-
-        int dependency_id = dependencyDAO.insertDependency(dependency, db);
-        // Insert the agent data and get the id
+            // Create a content values object to store the values
+            ContentValues appo_values = new ContentValues();
 
 
-        int agent_id = agentDAO.insertAgent(agent, db);
-        // Insert the appointment data with the foreign keys
-        appo_values.put(DBHelper.APPOINTMENT_START_DATETIME, appointment.getStart_datetime());
-        appo_values.put(DBHelper.APPOINTMENT_REMINDER_DATETIME, appointment.getReminder_datetime());
-        appo_values.put(DBHelper.APPOINTMENT_STAT, appointment.getStat());
-        appo_values.put(DBHelper.APPOINTMENT_DEPENDENCY_ID, dependency_id);
-        appo_values.put(DBHelper.APPOINTMENT_AGENT_ID, agent_id);
-        int id = (int) db.insert(DBHelper.TABLE_APPOINTMENT, null, appo_values);
+            // Insert the dependency data and get the id
 
-        // Set the transaction as successful
-        db.setTransactionSuccessful();
+            int dependency_id = dependencyDAO.insertDependency(dependency, db);
+            // Insert the agent data and get the id
 
-        // End the transaction
-        db.endTransaction();
+
+            int agent_id = agentDAO.insertAgent(agent, db);
+            // Insert the appointment data with the foreign keys
+            appo_values.put(DBHelper.APPOINTMENT_START_DATETIME, appointment.getStart_datetime());
+            appo_values.put(DBHelper.APPOINTMENT_REMINDER_DATETIME, appointment.getReminder_datetime());
+            appo_values.put(DBHelper.APPOINTMENT_STAT, appointment.getStat());
+            appo_values.put(DBHelper.APPOINTMENT_DEPENDENCY_ID, dependency_id);
+            appo_values.put(DBHelper.APPOINTMENT_AGENT_ID, agent_id);
+            id = (int) db.insert(DBHelper.TABLE_APPOINTMENT, null, appo_values);
+
+            // Set the transaction as successful
+            db.setTransactionSuccessful();
+        } finally {
+            // End the transaction
+            db.endTransaction();
+
+
+        }
+
 
         // Close the database
         db.close();
@@ -263,115 +270,45 @@ public class AppointmentDAO {
                 int dependency_id;
                 String dependency_name;
                 String dependency_category;
+                 // Check if the columns exists
+                if (idIndex >= 0 && datetimeIndex >= 0 && reminderIndex >= 0 && statIndex >= 0 && agentIdIndex >= 0 && agentNameIndex >= 0
+                    && agentCategoryIndex >= 0 && agentPhoneIndex >= 0 && dependencyIdIndex >= 0  && dependencyNameIndex >= 0 && dependencyCategoryIndex >= 0 ) {
 
-               // Check if the column index is valid and get the value
-                if (idIndex >= 0) {
+                    // Get the values from the cursor at index
                     id = cursor.getInt(idIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    id = -1;
-                }
-
-                if (datetimeIndex >= 0) {
                     datetime = cursor.getString(datetimeIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    datetime = null;
-                }
-
-                if (reminderIndex >= 0) {
                     reminder = cursor.getString(reminderIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    reminder = null;
-                }
-
-                if (statIndex >= 0) {
                     stat = cursor.getString(statIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    stat = null;
-                }
-
-                if (agentIdIndex >= 0) {
                     agent_id = cursor.getInt(agentIdIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_id = -1;
-                }
-
-                if (agentNameIndex >= 0) {
                     agent_name = cursor.getString(agentNameIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_name = null;
-                }
-
-                if (agentCategoryIndex >= 0) {
                     agent_category = cursor.getString(agentCategoryIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_category = null;
-                }
-
-                if (agentPhoneIndex >= 0) {
                     agent_phone = cursor.getString(agentPhoneIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_phone = null;
-                }
-
-                if (dependencyIdIndex >= 0) {
                     dependency_id = cursor.getInt(dependencyIdIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    dependency_id = -1;
-                }
-
-                if (dependencyNameIndex >= 0) {
                     dependency_name = cursor.getString(dependencyNameIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    dependency_name = null;
-                }
-
-                if (dependencyCategoryIndex >= 0) {
                     dependency_category = cursor.getString(dependencyCategoryIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    dependency_category = null;
+                    // Create an Appointment object with the data
+                    Appointment appointment = new Appointment(id,
+                            datetime,
+                            reminder,
+                            stat,
+                            agent_id,
+                            agent_name,
+                            agent_category,
+                            agent_phone,
+                            dependency_id,
+                            dependency_name,
+                            dependency_category);
+
+                    // Add the Appointment object to the list
+                    appointments.add(appointment);
                 }
 
 
 
 
 
-                // Create an Appointment object with the data
-                Appointment appointment = new Appointment(id,
-                 datetime,
-                 reminder,
-                 stat,
-                 agent_id,
-                 agent_name,
-                 agent_category,
-                 agent_phone,
-                 dependency_id,
-                 dependency_name,
-                 dependency_category);
 
-                // Add the Appointment object to the list
-                appointments.add(appointment);
+
             } while (cursor.moveToNext());
         }
 
@@ -384,7 +321,7 @@ public class AppointmentDAO {
     }
 
 
-    public List<Appointment> getAllAppointmentsWithStat(String stat) {
+    public List<Appointment> getAppointmentsByStatus(String stat) {
         // Get a readable database
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -429,118 +366,46 @@ public class AppointmentDAO {
                 String dependency_name;
                 String dependency_category;
 
-                // Check if the column index is valid and get the value
-                if (idIndex >= 0) {
+                if (idIndex >= 0 && datetimeIndex >= 0 && reminderIndex >= 0 && statIndex >= 0 && agentIdIndex >= 0 && agentNameIndex >= 0
+                        && agentCategoryIndex >= 0 && agentPhoneIndex >= 0 && dependencyIdIndex >= 0  && dependencyNameIndex >= 0 && dependencyCategoryIndex >= 0 ) {
+                    //get the data from the cursor at index
+
                     id = cursor.getInt(idIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    id = -1;
-                }
-
-                if (datetimeIndex >= 0) {
                     datetime = cursor.getString(datetimeIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    datetime = null;
-                }
-
-                if (reminderIndex >= 0) {
                     reminder = cursor.getString(reminderIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    reminder = null;
-                }
-
-                if (statIndex >= 0) {
-                    status = cursor.getString(statIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    status = null;
-                }
-
-                if (agentIdIndex >= 0) {
+                    stat = cursor.getString(statIndex);
                     agent_id = cursor.getInt(agentIdIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_id = -1;
-                }
-
-                if (agentNameIndex >= 0) {
                     agent_name = cursor.getString(agentNameIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_name = null;
-                }
-
-                if (agentCategoryIndex >= 0) {
                     agent_category = cursor.getString(agentCategoryIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_category = null;
-                }
-
-                if (agentPhoneIndex >= 0) {
                     agent_phone = cursor.getString(agentPhoneIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    agent_phone = null;
-                }
-
-                if (dependencyIdIndex >= 0) {
                     dependency_id = cursor.getInt(dependencyIdIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    
-                    dependency_id = -1;
-                }
-
-                if (dependencyNameIndex >= 0) {
                     dependency_name = cursor.getString(dependencyNameIndex);
-                } else {
-                    // Handle the case when the column does not exist
-
-                    dependency_name = null;
-                }
-
-                if (dependencyCategoryIndex >= 0) {
                     dependency_category = cursor.getString(dependencyCategoryIndex);
-                } else {
-                    // Handle the case when the column does not exist
-                    dependency_category = null;
+
+                    // Create an Appointment object with the data
+                    Appointment appointment = new Appointment(id,
+                            datetime,
+                            reminder,
+                            stat,
+                            agent_id,
+                            agent_name,
+                            agent_category,
+                            agent_phone,
+                            dependency_id,
+                            dependency_name,
+                            dependency_category);
+
+                    // Add the Appointment object to the list
+                    appointments.add(appointment);
                 }
 
 
-
-
-
-                // Create an Appointment object with the data
-                Appointment appointment = new Appointment(id,
-                        datetime,
-                        reminder,
-                        status,
-                        agent_id,
-                        agent_name,
-                        agent_category,
-                        agent_phone,
-                        dependency_id,
-                        dependency_name,
-                        dependency_category);
-
-                // Add the Appointment object to the list
-                appointments.add(appointment);
             } while (cursor.moveToNext());
         }
 
         // Close the cursor
         cursor.close();
+        //Close the database
         db.close();
 
         // Return the list of Appointment objects

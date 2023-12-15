@@ -75,6 +75,48 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_DEPENDENCY);
         db.execSQL(CREATE_TABLE_AGENT);
         db.execSQL(CREATE_TABLE_APPOINTMENT);
+        // Insert some data into the dependency table
+        db.execSQL("INSERT INTO " + TABLE_DEPENDENCY + " (" + DEPENDENCY_NAME + ", " + DEPENDENCY_CATEGORY + ") " +
+                "VALUES ('Hospital', 'Healthcare'), " +
+                "('School', 'Education'), " +
+                "('Restaurant', 'Food'), " +
+                "('Mall', 'Shopping');");
+
+// Insert some data into the agent table
+        db.execSQL("INSERT INTO " + TABLE_AGENT + " (" + AGENT_NAME + ", " + AGENT_CATEGORY + ", " + AGENT_PHONE_NUMBER + ") " +
+                "VALUES ('Alice', 'Friend', '123-456-7890'), " +
+                "('Bob', 'Family', '234-567-8901'), " +
+                "('Charlie', 'Colleague', '345-678-9012'), " +
+                "('David', 'Neighbor', '456-789-0123');");
+        // Insert 4 completed appointments
+        db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
+                "VALUES ('2023-12-15 09:00:00', '2023-12-14 09:00:00', 'completed', 2, 2), " +
+                "('2023-12-15 10:00:00', '2023-12-14 10:00:00', 'completed', 2, 2), " +
+                "('2023-12-15 11:00:00', '2023-12-14 11:00:00', 'completed', 3, 3), " +
+                "('2023-12-15 12:00:00', '2023-12-14 12:00:00', 'completed', 4, 4);");
+
+// Insert 4 canceled appointments
+        db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
+                "VALUES ('2023-12-15 13:00:00', '2023-12-14 13:00:00', 'canceled', 1, 1), " +
+                "('2023-12-15 14:00:00', '2023-12-14 14:00:00', 'canceled', 2, 2), " +
+                "('2023-12-15 15:00:00', '2023-12-14 15:00:00', 'canceled', 3, 3), " +
+                "('2023-12-15 16:00:00', '2023-12-14 16:00:00', 'canceled', 4, 4);");
+
+// Insert 4 pending appointments
+        db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
+                "VALUES ('2023-12-15 17:00:00', '2023-12-14 17:00:00', 'pending', 1, 1), " +
+                "('2023-12-15 18:00:00', '2023-12-14 18:00:00', 'pending', 2, 2), " +
+                "('2023-12-15 19:00:00', '2023-12-14 19:00:00', 'pending', 3, 3), " +
+                "('2023-12-15 20:00:00', '2023-12-14 20:00:00', 'pending', 4, 4);");
+
+// Insert 4 delayed appointments
+        db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
+                "VALUES ('2023-12-15 21:00:00', '2023-12-14 21:00:00', 'delayed', 1, 1), " +
+                "('2023-12-15 22:00:00', '2023-12-14 22:00:00', 'delayed', 2, 2), " +
+                "('2023-12-15 23:00:00', '2023-12-14 23:00:00', 'delayed', 3, 3), " +
+                "('2023-12-16 00:00:00', '2023-12-15 00:00:00', 'delayed', 4, 4);");
+
+
     }
 
     // Override the onUpgrade method to drop and recreate the database
