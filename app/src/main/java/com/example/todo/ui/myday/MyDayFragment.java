@@ -43,7 +43,7 @@ public class MyDayFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recycler_view);
 
         // Set the layout manager to the RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL, false));
 
         // Create a new list of appointments or get it from somewhere else
         List<Appointment> newappointments = new ArrayList<>();
@@ -51,17 +51,17 @@ public class MyDayFragment extends Fragment {
         adapter = new AppointmentAdapter(getActivity(), newappointments);
         recyclerView.setAdapter(adapter);
 
-        myDayViewModel.getAppointments();
+        /*myDayViewModel.getAppointments();*/
         // Observe the list of appointments in the viewmodel using the observe method
         // Pass the fragment as the lifecycle owner and a lambda expression as the observer
-        myDayViewModel.getAppointments().observe(getViewLifecycleOwner(), appointments -> {
+        myDayViewModel.getMyDayEvents().observe(getViewLifecycleOwner(), appointments -> {
             // Check if the list is not null and not empty
             if (appointments != null && !appointments.isEmpty()) {
                 // Pass the list to the adapter
                adapter.setAppointments(appointments);
             } else {
                 // Show a toast message that there are no appointments
-                Toast.makeText(getActivity(), "No appointments in this day", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "No Event for today", Toast.LENGTH_SHORT).show();
             }
         });
 

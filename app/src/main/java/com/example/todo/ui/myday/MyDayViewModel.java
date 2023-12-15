@@ -27,7 +27,7 @@ public class MyDayViewModel extends ViewModel {
     }
 
     // A method to get the LiveData object
-    public LiveData<List<Appointment>> getAppointments() {
+    public LiveData<List<Appointment>> getMyDayEvents() {
         // If the LiveData object is null, initialize it
         if (appointments == null) {
             appointments = new MutableLiveData<List<Appointment>>();
