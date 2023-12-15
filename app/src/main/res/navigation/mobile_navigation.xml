@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_delayed"
         android:name="com.example.todo.ui.delayed.DelayedTasksFragment"
-        android:label="@string/menu_reminders"
+        android:label="@string/menu_delayed"
         tools:layout="@layout/fragment_delayed_tasks" />
 
     <fragment
