@@ -1,10 +1,10 @@
 package com.example.todo.ui.delayed;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,28 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
+import com.example.todo.data.DBHelper;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
 import com.example.todo.databinding.FragmentDelayedTasksBinding;
-import com.example.todo.databinding.FragmentDelayedTasksBinding;
-import com.example.todo.ui.AppointmentAdapter;
+import com.example.todo.ui.EventAdapter;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DelayedTasksFragment extends Fragment {
+public class DelayedEventsFragment extends Fragment {
 
     private FragmentDelayedTasksBinding binding;
     private RecyclerView recyclerView;
-    private AppointmentAdapter adapter;
-    private DelayedTasksViewModel DelayedTasksViewModel;
+    private EventAdapter adapter;
+    private DelayedEventViewModel DelayedEventViewModel;
+    private DBHelper dbHelper;
+    private SQLiteDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // Create an instance of the viewmodel using the ViewModelProvider class
         // Pass the fragment as the scope and a factory that provides the AppointmentDAO as a parameter
-        DelayedTasksViewModel = new ViewModelProvider(this, new DelayedTasksFragment.DelayedTasksViewModelFactory(new AppointmentDAO(getActivity()))).get(DelayedTasksViewModel.class);
+        DelayedEventViewModel = new ViewModelProvider(this, new DelayedEventsFragment.DelayedTasksViewModelFactory(new AppointmentDAO(getActivity()))).get(DelayedEventViewModel.class);
 
         binding = FragmentDelayedTasksBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -51,13 +53,15 @@ public class DelayedTasksFragment extends Fragment {
         // Create a new list of appointments or get it from somewhere else
         List<Appointment> newappointments = new ArrayList<>();
         // Create a new adapter object and set it to the RecyclerView
-        adapter = new AppointmentAdapter(getActivity(), newappointments);
+        adapter = new EventAdapter(getActivity(), newappointments);
         recyclerView.setAdapter(adapter);
+        dbHelper = new DBHelper(getActivity());
+        db = dbHelper.getReadableDatabase();
 
-        /*DelayedTasksViewModel.getAppointments();*/
+        /*DelayedEventViewModel.getAppointments();*/
         // Observe the list of appointments in the viewmodel using the observe method
         // Pass the fragment as the lifecycle owner and a lambda expression as the observer
-        DelayedTasksViewModel.getDelayedEvents().observe(getViewLifecycleOwner(), appointments -> {
+        DelayedEventViewModel.getDelayedEvents(db).observe(getViewLifecycleOwner(), appointments -> {
             // Check if the list is not null and not empty
             if (appointments != null && !appointments.isEmpty()) {
                 // Pass the list to the adapter
@@ -77,7 +81,9 @@ public class DelayedTasksFragment extends Fragment {
         binding = null;
         recyclerView = null;
         adapter = null;
-        DelayedTasksViewModel = null;
+        DelayedEventViewModel = null;
+        db.close();
+        dbHelper.close();
     }
 
     public static class DelayedTasksViewModelFactory implements ViewModelProvider.Factory {
@@ -89,11 +95,11 @@ public class DelayedTasksFragment extends Fragment {
             this.appointmentDAO = appointmentDAO;
         }
 
-        // Override the create method to return an instance of DelayedTasksViewModel with the AppointmentDAO
+        // Override the create method to return an instance of DelayedEventViewModel with the AppointmentDAO
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new DelayedTasksViewModel(appointmentDAO);
+            return (T) new DelayedEventViewModel(appointmentDAO);
         }
     }
 

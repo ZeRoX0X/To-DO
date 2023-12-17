@@ -73,15 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/dependency_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Dependency Name" />
+
                 <TextView
                     android:id="@+id/dependency_category"
                     android:layout_width="0dp"
@@ -91,6 +83,15 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     tools:text="Dependency Category" />
+                <TextView
+                    android:id="@+id/agent_category"
+                    android:layout_width="0dp"
+                    android:layout_height="25dp"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    tools:text="Agent Category"/>
 
 
 
@@ -99,27 +100,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/dependency_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:alpha="0.5"
+                    android:textSize="14sp"
+                    tools:text="Dependency Name" />
 
             <TextView
                 android:id="@+id/agent_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:alpha="0.5"
                 android:singleLine="true"
                 android:textColor="@android:color/black"
+                android:alpha="0.5"
                 android:textSize="14sp"
                 tools:text="Agent Name" />
-                <TextView
-                    android:id="@+id/agent_category"
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="0.5"
-                    android:alpha="0.5"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Agent Category"/>
+
+
             </LinearLayout>
 
             <TextView

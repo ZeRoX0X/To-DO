@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/title1"
+        android:id="@+id/completedTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -12,13 +12,15 @@
         android:layout_marginTop="133dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="15dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
         android:text="Completed Events:" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title1"
+        android:layout_below="@id/completedTitle"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
@@ -30,20 +32,22 @@
         android:padding="8dp" />
 
     <TextView
-        android:id="@+id/title2"
+        android:id="@+id/canceledTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recycler_view1"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="47dp"
-        android:text="Cancelled Events:" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63dp"
+        android:text="Cancelled Events:"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title2"
+        android:layout_below="@id/canceledTitle"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
@@ -52,6 +56,29 @@
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/completed_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="138dp"
+        android:layout_marginEnd="140dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/canceled_count"
+        android:layout_width="46dp"
+        android:layout_height="38dp"
+        android:layout_below="@id/recycler_view1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="342dp"
+        android:text="TextView" />
 
 
 </RelativeLayout>

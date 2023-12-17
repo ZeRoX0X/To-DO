@@ -49,19 +49,20 @@ public class AppointmentDAO {
 
 
             // Insert the dependency data and get the id
-
             int dependency_id = dependencyDAO.insertDependency(dependency, db);
             // Insert the agent data and get the id
-
-
             int agent_id = agentDAO.insertAgent(agent, db);
-            // Insert the appointment data with the foreign keys
-            appo_values.put(DBHelper.APPOINTMENT_START_DATETIME, appointment.getStart_datetime());
-            appo_values.put(DBHelper.APPOINTMENT_REMINDER_DATETIME, appointment.getReminder_datetime());
-            appo_values.put(DBHelper.APPOINTMENT_STAT, appointment.getStat());
-            appo_values.put(DBHelper.APPOINTMENT_DEPENDENCY_ID, dependency_id);
-            appo_values.put(DBHelper.APPOINTMENT_AGENT_ID, agent_id);
-            id = (int) db.insert(DBHelper.TABLE_APPOINTMENT, null, appo_values);
+
+
+
+                // Insert the appointment data with the foreign keys
+                appo_values.put(DBHelper.APPOINTMENT_START_DATETIME, appointment.getStart_datetime());
+                appo_values.put(DBHelper.APPOINTMENT_REMINDER_DATETIME, appointment.getReminder_datetime());
+                appo_values.put(DBHelper.APPOINTMENT_STAT, appointment.getStat());
+                appo_values.put(DBHelper.APPOINTMENT_DEPENDENCY_ID, dependency_id);
+                appo_values.put(DBHelper.APPOINTMENT_AGENT_ID, agent_id);
+                id = (int) db.insert(DBHelper.TABLE_APPOINTMENT, null, appo_values);
+
 
             // Set the transaction as successful
             db.setTransactionSuccessful();
@@ -80,10 +81,15 @@ public class AppointmentDAO {
         return id;
     }
     // Method to update an existing appointment
-    public Map<String, Integer> updateAppointment(Appointment appointment, Dependency dependency, Agent agent, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
+    public boolean updateAppointment(Appointment appointment, Dependency dependency, Agent agent, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
+        int appointment_rows;
+        int dependency_rows;
+        int agent_rows;
+        // Begin a transaction
+        db.beginTransaction();
+        try {
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
         values.put(DBHelper.APPOINTMENT_START_DATETIME, appointment.getStart_datetime());
@@ -92,23 +98,23 @@ public class AppointmentDAO {
         values.put(DBHelper.APPOINTMENT_DEPENDENCY_ID, appointment.getDependency_id());
         values.put(DBHelper.APPOINTMENT_AGENT_ID, appointment.getAgent_id());
         // Update the row and return the number of affected rows
-        int appointment_rows = db.update(DBHelper.TABLE_APPOINTMENT, values,DBHelper.APPOINTMENT_ID + " = ?", new String[]{String.valueOf(appointment.getId())});
-        int dependency_rows = dependencyDAO.updateDependency(dependency);
-        int agent_rows = agentDAO.updateAgent(agent);
+        appointment_rows = db.update(DBHelper.TABLE_APPOINTMENT, values,DBHelper.APPOINTMENT_ID + " = ?", new String[]{String.valueOf(appointment.getId())});
+         dependency_rows = dependencyDAO.updateDependency(dependency, db);
+         agent_rows = agentDAO.updateAgent(agent, db);
+            // Set the transaction as successful
+            db.setTransactionSuccessful();
+        } finally {
+
+            // End the transaction
+            db.endTransaction();}
 
         // Close the database
         db.close();
-        // Map all the returned affected rows in a K,V pairs
-        Map<String, Integer> rows = new HashMap<>();
 
-        rows.put("appointment_rows", appointment_rows);
-        rows.put("dependency_rows", dependency_rows);
-        rows.put("agent_rows", agent_rows);
 
         // Return the number of affected rows
-        return rows;
+        return (agent_rows>=0) && (dependency_rows >= 0) && (appointment_rows >= 0);
     }
-
     public int updateAppointmentStatus(int id, String status) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -127,6 +133,8 @@ public class AppointmentDAO {
         // Return the number of affected rows
         return rows;
     }
+
+
 
     // Method to delete an existing appointment
     public boolean deleteAppointment(int appointment_id, int agent_id, int dependency_id, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
@@ -150,7 +158,7 @@ public class AppointmentDAO {
         db.close();
         return (agent_rows>=0) && (dependency_rows >= 0) && (appointment_rows >= 0);
 
-        // Return the number of affected rows
+
     }
 
     // Method to get an appointment by its id
@@ -225,9 +233,7 @@ public class AppointmentDAO {
 
 
     // Query all appointments in this day with the agent and dependency data
-    public List<Appointment> getAllAppointmentsToday() {
-        // Get a readable database
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+    public List<Appointment> getAllAppointmentsToday(SQLiteDatabase db) {
 
 
         // Create a query string with a join and a where clause
@@ -314,16 +320,15 @@ public class AppointmentDAO {
 
         // Close the cursor
         cursor.close();
-        db.close();
+
 
         // Return the list of Appointment objects
         return appointments;
     }
 
 
-    public List<Appointment> getAppointmentsByStatus(String stat) {
-        // Get a readable database
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+    public List<Appointment> getAppointmentsByStatus(String stat, SQLiteDatabase db) {
+
 
         // Create a query string with a join and a where clause
         String query = "SELECT * FROM " + DBHelper.TABLE_APPOINTMENT + " a " +
@@ -405,8 +410,7 @@ public class AppointmentDAO {
 
         // Close the cursor
         cursor.close();
-        //Close the database
-        db.close();
+
 
         // Return the list of Appointment objects
         return appointments;

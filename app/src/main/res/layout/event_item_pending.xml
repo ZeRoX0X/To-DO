@@ -76,26 +76,27 @@
 
                 <TextView
                     android:id="@+id/dependency_category"
-                    android:layout_width="0dp"
+                    android:layout_width="45dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
                     tools:text="Dependency Category" />
+
                 <TextView
                     android:id="@+id/agent_category"
-                    android:layout_width="0dp"
+                    android:layout_width="100dp"
                     android:layout_height="25dp"
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
-                    tools:text="Agent Category"/>
+                    tools:text="Agent Category" />
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
                     android:id="@+id/options"
                     android:background="@drawable/more"/>
 
@@ -112,6 +113,7 @@
                     android:layout_weight="0.5"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
+                    android:alpha="0.5"
                     android:textSize="14sp"
                     tools:text="Dependency Name" />
 
@@ -122,6 +124,7 @@
                     android:layout_weight="0.5"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
+                    android:alpha="0.5"
                     android:textSize="14sp"
                     tools:text="Agent Name" />
 

@@ -1,5 +1,6 @@
 package com.example.todo.ui.tasks;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class TasksViewModel extends ViewModel {
+public class EventsViewModel extends ViewModel {
     // A LiveData object to hold the list of completed appointments
     private MutableLiveData<List<Appointment>> completedAppointments;
 
@@ -25,7 +26,7 @@ public class TasksViewModel extends ViewModel {
     private AppointmentDAO appointmentDAO;
 
     // A constructor that takes an AppointmentDAO as a parameter and assigns it to the field
-    public TasksViewModel(AppointmentDAO appointmentDAO) {
+    public EventsViewModel(AppointmentDAO appointmentDAO) {
         this.appointmentDAO = appointmentDAO;
         // Initialize the LiveData objects
         completedAppointments = new MutableLiveData<List<Appointment>>();
@@ -33,23 +34,23 @@ public class TasksViewModel extends ViewModel {
     }
 
     // A method to get the LiveData object for completed appointments
-    public LiveData<List<Appointment>> getCompletedAppointments() {
+    public LiveData<List<Appointment>> getCompletedAppointments(SQLiteDatabase db) {
         // Load the appointments from the DAO with the status "completed"
-        loadAppointments("completed");
+        loadAppointments("completed", db);
         // Return the LiveData object
         return completedAppointments;
     }
 
     // A method to get the LiveData object for cancelled appointments
-    public LiveData<List<Appointment>> getCancelledAppointments() {
+    public LiveData<List<Appointment>> getCancelledAppointments(SQLiteDatabase db) {
         // Load the appointments from the DAO with the status "canceled"
-        loadAppointments("canceled");
+        loadAppointments("canceled", db);
         // Return the LiveData object
         return cancelledAppointments;
     }
 
     // A method to load the appointments from the DAO
-    private void loadAppointments(String status) {
+    private void loadAppointments(String status, SQLiteDatabase db) {
         // Use an executor service and a handler to perform the task on a background thread and post the result to the UI thread
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -58,7 +59,7 @@ public class TasksViewModel extends ViewModel {
             @Override
             public void run() {
                 // Call the DAO method with the status parameter and store the result
-                List<Appointment> appointmentList = appointmentDAO.getAppointmentsByStatus(status);
+                List<Appointment> appointmentList = appointmentDAO.getAppointmentsByStatus(status, db);
                 // Post the result to the appropriate LiveData object
                 handler.post(new Runnable() {
                     @Override

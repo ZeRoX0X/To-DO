@@ -1,5 +1,6 @@
 package com.example.todo.ui.myday;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -27,19 +28,19 @@ public class MyDayViewModel extends ViewModel {
     }
 
     // A method to get the LiveData object
-    public LiveData<List<Appointment>> getMyDayEvents() {
+    public LiveData<List<Appointment>> getMyDayEvents(SQLiteDatabase db) {
         // If the LiveData object is null, initialize it
         if (appointments == null) {
             appointments = new MutableLiveData<List<Appointment>>();
             // Load the appointments from the DAO
-            loadAppointments();
+            loadAppointments(db);
         }
         // Return the LiveData object
         return appointments;
     }
 
     // A method to load the appointments from the DAO
-    private void loadAppointments() {
+    private void loadAppointments(SQLiteDatabase db) {
         // Use an executor service and a handler to perform the task on a background thread and post the result to the UI thread
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -48,7 +49,7 @@ public class MyDayViewModel extends ViewModel {
             @Override
             public void run() {
                 // Call the DAO method and store the result
-                List<Appointment> appointmentList = appointmentDAO.getAllAppointmentsToday();
+                List<Appointment> appointmentList = appointmentDAO.getAllAppointmentsToday(db);
                 // Post the result to the LiveData object
                 handler.post(new Runnable() {
                     @Override

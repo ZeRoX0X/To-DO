@@ -1,5 +1,6 @@
 package com.example.todo.ui.myday;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
+import com.example.todo.data.DBHelper;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
 import com.example.todo.databinding.FragmentMyDayBinding;
-import com.example.todo.ui.AppointmentAdapter;
+import com.example.todo.ui.EventAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,10 @@ public class MyDayFragment extends Fragment {
 
     private FragmentMyDayBinding binding;
     private RecyclerView recyclerView;
-    private AppointmentAdapter adapter;
+    private EventAdapter adapter;
     private MyDayViewModel myDayViewModel;
+    private DBHelper dbHelper;
+    private SQLiteDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,13 +52,15 @@ public class MyDayFragment extends Fragment {
         // Create a new list of appointments or get it from somewhere else
         List<Appointment> newappointments = new ArrayList<>();
         // Create a new adapter object and set it to the RecyclerView
-        adapter = new AppointmentAdapter(getActivity(), newappointments);
+        adapter = new EventAdapter(getActivity(), newappointments);
         recyclerView.setAdapter(adapter);
+        dbHelper = new DBHelper(getActivity());
+        db = dbHelper.getReadableDatabase();
 
-        /*myDayViewModel.getAppointments();*/
+
         // Observe the list of appointments in the viewmodel using the observe method
         // Pass the fragment as the lifecycle owner and a lambda expression as the observer
-        myDayViewModel.getMyDayEvents().observe(getViewLifecycleOwner(), appointments -> {
+        myDayViewModel.getMyDayEvents(db).observe(getViewLifecycleOwner(), appointments -> {
             // Check if the list is not null and not empty
             if (appointments != null && !appointments.isEmpty()) {
                 // Pass the list to the adapter
@@ -75,6 +81,8 @@ public class MyDayFragment extends Fragment {
         recyclerView = null;
         adapter = null;
         myDayViewModel = null;
+        db.close();
+        dbHelper.close();
     }
 
     public static class MyDayViewModelFactory implements ViewModelProvider.Factory {
@@ -93,6 +101,9 @@ public class MyDayFragment extends Fragment {
             return (T) new MyDayViewModel(appointmentDAO);
         }
     }
+
+
+
 
 }
 

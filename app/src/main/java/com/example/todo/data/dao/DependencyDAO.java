@@ -21,8 +21,7 @@ public class DependencyDAO {
 
     // Method to insert a new dependency
     public int insertDependency(Dependency dependency, SQLiteDatabase db) {
-        // Get a writable database
-        //SQLiteDatabase db = dbHelper.getWritableDatabase();
+
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
@@ -32,17 +31,15 @@ public class DependencyDAO {
         // Insert the row and return the id
         int id = (int) db.insert(DBHelper.TABLE_DEPENDENCY, null, values);
 
-        // Close the database
-       // db.close();
+
 
         // Return the id
         return id;
     }
 
     // Method to update an existing dependency
-    public int updateDependency(Dependency dependency) {
-        // Get a writable database
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+    public int updateDependency(Dependency dependency, SQLiteDatabase db) {
+
 
         // Create a content values object to store the values
         ContentValues values = new ContentValues();
@@ -52,8 +49,7 @@ public class DependencyDAO {
         // Update the row and return the number of affected rows
         int rows = db.update(DBHelper.TABLE_DEPENDENCY, values, DBHelper.DEPENDENCY_ID + " = ?", new String[]{String.valueOf(dependency.getId())});
 
-        // Close the database
-        db.close();
+
 
         // Return the number of affected rows
         return rows;
@@ -61,14 +57,12 @@ public class DependencyDAO {
 
     // Method to delete an existing dependency
     public int deleteDependency(int id,SQLiteDatabase db) {
-        // Get a writable database
-       // SQLiteDatabase db = dbHelper.getWritableDatabase();
+
 
         // Delete the row and return the number of affected rows
         int rows = db.delete(DBHelper.TABLE_DEPENDENCY, DBHelper.DEPENDENCY_ID + " = ?", new String[]{String.valueOf(id)});
 
-        // Close the database
-        //db.close();
+
 
         // Return the number of affected rows
         return rows;

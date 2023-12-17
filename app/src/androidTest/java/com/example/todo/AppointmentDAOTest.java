@@ -61,7 +61,7 @@ public class AppointmentDAOTest {
         Dependency dependency = new Dependency("ABC", "retail");
 
         // Insert the data into the database
-        long id =  appo_dao.insertAppointment(appointment, agent, dependency, agent_dao,dep_dao);
+        int id =  appo_dao.insertAppointment(appointment, agent, dependency, agent_dao,dep_dao);
 
         // Query the database for the inserted data
         Appointment result = appo_dao.getAppointmentById(id);

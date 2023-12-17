@@ -12,6 +12,8 @@
     <color name="red">#BA0C2E</color>
     <color name="beige">#fbd7bd</color>
     <color name="colorAccent">#4885ed</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
 
 
 </resources>
