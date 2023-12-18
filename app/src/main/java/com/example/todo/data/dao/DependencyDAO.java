@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.todo.data.DBHelper;
 import com.example.todo.data.models.Dependency;
 
-// DependencyDAO class
+
 public class DependencyDAO {
 
 

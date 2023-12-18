@@ -2,7 +2,7 @@ package com.example.todo.data.models;
 
 import java.io.Serializable;
 
-// Appointment class
+
 public class Appointment {
 
 
