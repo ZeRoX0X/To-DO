@@ -16,7 +16,7 @@
         tools:targetApi="34">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ToDO.NoActionBar">
@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewEventActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".activity.NewEventActivity"
+            android:parentActivityName=".activity.MainActivity" />
     </application>
 
 </manifest>
