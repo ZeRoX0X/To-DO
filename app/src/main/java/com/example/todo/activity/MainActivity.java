@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.todo.R;
 import com.example.todo.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 

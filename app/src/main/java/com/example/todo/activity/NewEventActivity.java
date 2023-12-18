@@ -1,4 +1,4 @@
-package com.example.todo;
+package com.example.todo.activity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -10,11 +10,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +25,8 @@ import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.todo.R;
+import com.example.todo.Receiver;
 import com.example.todo.data.dao.AgentDAO;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.dao.DependencyDAO;
@@ -163,105 +163,101 @@ public class NewEventActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
 
-        if(bundle != null){boolean isUpdate = bundle.getBoolean("isUpdate");
-
-
-
-        //String appointmentstat = intent.getStringExtra("Stat");
-       if (isUpdate){
+        // Check the bundle returned from the is not null then pass it to the setOldEvent() method
+       if (bundle != null){
            setOldEvent(bundle);
        }
-        }
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bundle != null){updateEvent(bundle);}
+                if (bundle != null) {
+                    updateEvent(bundle);
+                } else {
 
-                String status = "pending";
-                String start_datetime = getDateTime(appointmentTime,appointmentDate);
-                String reminder_datetime = getDateTime(reminderTime, appointmentDate);
-                String agent_name = agentName.getText().toString();
-                String agent_category =  agentCategory.getText().toString();
-                String agent_phone =  agentPhone.getText().toString();
-                String dependency_name = dependencyName.getText().toString();
-                String dependency_category =  dependencyCategory.getText().toString();
+                    String status = "pending";
+                    String start_datetime = getDateTime(appointmentTime, appointmentDate);
+                    String reminder_datetime = getDateTime(reminderTime, appointmentDate);
+                    String agent_name = agentName.getText().toString();
+                    String agent_category = agentCategory.getText().toString();
+                    String agent_phone = agentPhone.getText().toString();
+                    String dependency_name = dependencyName.getText().toString();
+                    String dependency_category = dependencyCategory.getText().toString();
 
-                // Check if all these strings are not empty
-                if (start_datetime != null && !start_datetime.isEmpty() &&
+                    // Check if all these strings are not empty
+                    if (start_datetime != null && !start_datetime.isEmpty() &&
 
-                         !agent_name.isEmpty() && !agent_category.isEmpty() &&
-                         !agent_phone.isEmpty() &&
-                         !dependency_name.isEmpty() && !dependency_category.isEmpty()) {
+                            !agent_name.isEmpty() && !agent_category.isEmpty() &&
+                            !agent_phone.isEmpty() &&
+                            !dependency_name.isEmpty() && !dependency_category.isEmpty()) {
 
-                    // Create a new Appointment object and pass the values from the views
-                    Appointment appointment = new Appointment(start_datetime, reminder_datetime,status
+                        // Create a new Appointment object and pass the values from the views
+                        Appointment appointment = new Appointment(start_datetime, reminder_datetime, status
 
 
-                    );
+                        );
 
-                    // Create a new Agent object and pass the values from the views
-                    Agent agent = new Agent(
-                            agent_name,
-                            agent_category,
-                            agent_phone
-                    );
+                        // Create a new Agent object and pass the values from the views
+                        Agent agent = new Agent(
+                                agent_name,
+                                agent_category,
+                                agent_phone
+                        );
 
-                    // Create a new Dependency object and pass the values from the views
-                    Dependency dependency = new Dependency(
-                            dependency_name,
-                            dependency_category
-                    );
+                        // Create a new Dependency object and pass the values from the views
+                        Dependency dependency = new Dependency(
+                                dependency_name,
+                                dependency_category
+                        );
 
-                    // Create an instance of the AppointmentDAO class
-                    AppointmentDAO appointmentDAO = new AppointmentDAO(NewEventActivity.this);
+                        // Create an instance of the AppointmentDAO class
+                        AppointmentDAO appointmentDAO = new AppointmentDAO(NewEventActivity.this);
 
-                    // Create an instance of the AgentDAO class
-                    AgentDAO agentDAO = new AgentDAO(NewEventActivity.this);
+                        // Create an instance of the AgentDAO class
+                        AgentDAO agentDAO = new AgentDAO(NewEventActivity.this);
 
-                    // Create an instance of the DependencyDAO class
-                    DependencyDAO dependencyDAO = new DependencyDAO(NewEventActivity.this);
+                        // Create an instance of the DependencyDAO class
+                        DependencyDAO dependencyDAO = new DependencyDAO(NewEventActivity.this);
 
-                    // Call the insertAppointment method and pass the objects
-                    int id = appointmentDAO.insertAppointment(appointment, agent, dependency, agentDAO, dependencyDAO);
+                        // Call the insertAppointment method and pass the objects
+                        int id = appointmentDAO.insertAppointment(appointment, agent, dependency, agentDAO, dependencyDAO);
 
-                    // Check if the insertion was successful
-                    if (id > 0) {
-                        if (reminder_datetime != null  && !reminder_datetime.isEmpty() ){
+                        // Check if the insertion was successful
+                        if (id > 0) {
+                            if (reminder_datetime != null && !reminder_datetime.isEmpty()) {
 
-                            // Parse the string reminder_datetime into a Date object
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                           Date date;
-                            try {
-                                date = sdf.parse(reminder_datetime);
-                            } catch (ParseException e) {
-                                throw new RuntimeException(e);
+                                // Parse the string reminder_datetime into a Date object
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                Date date;
+                                try {
+                                    date = sdf.parse(reminder_datetime);
+                                } catch (ParseException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                // Get the number of milliseconds
+                                long dateInMillis = date.getTime();
+                                // Pass the dateInMillis as a long parameter to the setAlarm() method
+                                setAlarm(dateInMillis, agent_phone);
+
+
                             }
-                            // Get the number of milliseconds
-                            long dateInMillis = date.getTime();
-                            // Pass the dateInMillis as a long parameter to the setAlarm() method
-                            setAlarm(dateInMillis, agent_phone);
                             Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
                             // Start the new activity
                             startActivity(intent);
-
+                            // Show a toast message
+                            Toast.makeText(NewEventActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Show a toast message
+                            Toast.makeText(NewEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
                         }
-                        Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
-                        // Start the new activity
-                        startActivity(intent);
-                        // Show a toast message
-                        Toast.makeText(NewEventActivity.this, "Appointment added successfully", Toast.LENGTH_SHORT).show();
+
+
                     } else {
-                        // Show a toast message
-                        Toast.makeText(NewEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewEventActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     }
 
 
-
-                } else {
-                    Toast.makeText(NewEventActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 
@@ -291,6 +287,9 @@ public class NewEventActivity extends AppCompatActivity {
         dependencyName.setText(oldDependency_name);
         dependencyCategory.setText(oldDependency_category);
         if(oldReminder_datetime != null){
+            // Show the text views
+            reminderTime.setVisibility(View.VISIBLE);
+            reminderTimeBtn.setVisibility(View.VISIBLE);
 
         reminderTime.setText(oldReminder_datetime.substring(11, 16));
         reminderTimeSwitch.setChecked(true);
@@ -371,19 +370,17 @@ public class NewEventActivity extends AppCompatActivity {
                     long dateInMillis = date.getTime();
                     // Pass the dateInMillis as a long parameter to the setAlarm() method
                     setAlarm(dateInMillis, agent_phone);
-                    int rows = appointmentDAO.updateAppointmentStatus(oldAppointment_id, "delayed");
+                }
+                int rows = appointmentDAO.updateAppointmentStatus(oldAppointment_id, "delayed");
+                if(rows >= 0) {
                     Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
                     // Start the new activity
                     startActivity(intent);
                     // Show a toast message
                     Toast.makeText(NewEventActivity.this, "Appointment updated successfully", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(NewEventActivity.this, "Appointment updated failed", Toast.LENGTH_SHORT).show();
                 }
-                int rows = appointmentDAO.updateAppointmentStatus(oldAppointment_id, "delayed");
-                Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
-                // Start the new activity
-                startActivity(intent);
-                // Show a toast message
-                Toast.makeText(NewEventActivity.this, "Appointment updated successfully", Toast.LENGTH_SHORT).show();
             } else {
                 // Show a toast message
                 Toast.makeText(NewEventActivity.this, "Appointment insertion failed", Toast.LENGTH_SHORT).show();
