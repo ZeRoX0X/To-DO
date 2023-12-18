@@ -1,6 +1,6 @@
 package com.example.todo.ui;
 
-// Import the required libraries
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,14 +19,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todo.NewEventActivity;
+import com.example.todo.activity.NewEventActivity;
 import com.example.todo.R;
 import com.example.todo.data.dao.AgentDAO;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.dao.DependencyDAO;
 import com.example.todo.data.models.Appointment;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -50,8 +49,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         this.appointments = appointments;
         Collections.sort(this.appointments, new Comparator<Appointment>() {
             public int compare(Appointment a1, Appointment a2) {
-                // Assuming your date and time fields are of type String
-                // You can use SimpleDateFormat to parse them into Date objects
+
+                // Parse the datetime of the two appointment objects  into Date objects
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 try {
                     Date d1 = sdf.parse(a1.getStart_datetime());
@@ -92,7 +91,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
     }
 
 
-    // Override the onCreateViewHolder method to inflate the item layout and return a new ViewHolder object
+
     // Override the onCreateViewHolder method to inflate the item layout and return a new ViewHolder object
     @NonNull
     @Override
