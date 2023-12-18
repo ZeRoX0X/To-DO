@@ -40,7 +40,7 @@ public class AppointmentDAO {
         // Begin a transaction
         db.beginTransaction();
 
-        int id;
+        int id = -1;
         try {
 
 
@@ -84,9 +84,9 @@ public class AppointmentDAO {
     public boolean updateAppointment(Appointment appointment, Dependency dependency, Agent agent, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int appointment_rows;
-        int dependency_rows;
-        int agent_rows;
+        int appointment_rows = -1;
+        int dependency_rows = -1;
+        int agent_rows = -1;
         // Begin a transaction
         db.beginTransaction();
         try {
@@ -140,19 +140,26 @@ public class AppointmentDAO {
     public boolean deleteAppointment(int appointment_id, int agent_id, int dependency_id, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        int appointment_rows = -1;
+        int dependency_rows = -1;
+        int agent_rows = -1;
         // Begin a transaction
         db.beginTransaction();
-        int agent_rows = agentDAO.deleteAgent(agent_id, db);
-        int dependency_rows = dependencyDAO.deleteDependency(dependency_id, db);
+        try {
 
-        // Delete the row and return the number of affected rows
-        int appointment_rows = db.delete(DBHelper.TABLE_APPOINTMENT, DBHelper.APPOINTMENT_ID + " = ?", new String[]{String.valueOf(appointment_id)});
+            // Delete the row and return the number of affected rows
+         agent_rows = agentDAO.deleteAgent(agent_id, db);
+         dependency_rows = dependencyDAO.deleteDependency(dependency_id, db);
+
+
+         appointment_rows = db.delete(DBHelper.TABLE_APPOINTMENT, DBHelper.APPOINTMENT_ID + " = ?", new String[]{String.valueOf(appointment_id)});
 
         // Set the transaction as successful
         db.setTransactionSuccessful();
-
+        } finally {
         // End the transaction
-        db.endTransaction();
+        db.endTransaction();}
 
         // Close the database
         db.close();
