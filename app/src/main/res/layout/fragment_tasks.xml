@@ -59,26 +59,39 @@
 
     <TextView
         android:id="@+id/completed_count"
-        android:layout_width="wrap_content"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="138dp"
-        android:layout_marginEnd="140dp"
-        android:text="TextView" />
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="142dp"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/canceled_count"
-        android:layout_width="46dp"
-        android:layout_height="38dp"
+        android:layout_width="68dp"
+        android:layout_height="36dp"
         android:layout_below="@id/recycler_view1"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="146dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="125dp"
         android:layout_marginBottom="342dp"
-        android:text="TextView" />
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:text="Cancelled count:" />
+
+    <ImageView
+        android:id="@+id/status_emoji"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="28dp"
+         />
 
 
 </RelativeLayout>
