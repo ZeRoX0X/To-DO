@@ -56,13 +56,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
                 try {
                     Date d1 = sdf.parse(a1.getStart_datetime());
                     Date d2 = sdf.parse(a2.getStart_datetime());
+
+                    if(d1 != null && d2!= null){
                     // Compare the dates using the compareTo() method
-                    return d1.compareTo(d2);
+                    return d1.compareTo(d2);}
                 } catch (ParseException e) {
                     // Handle the exception if the date format is invalid
                     e.printStackTrace();
                     return 0;
                 }
+                return 0;
             }
         });
 
@@ -120,6 +123,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
     // Override the onBindViewHolder method to bind the data to the views in the ViewHolder object
     @Override
     public void onBindViewHolder(AppointmentViewHolder holder, int position) {
+
+        int completedEvents = getItemCount();
+
+        int canceledEvents = getItemCount();
         // Get the appointment object at the given position
         Appointment appointment = appointments.get(position);
 
@@ -235,7 +242,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
     }
     public void showCancelDialog(int eventId, int position) {
         Dialog dialog = new Dialog(context, R.style.Theme_ToDO);
-        dialog.setContentView(R.layout.dialog_completed_theme);
+        dialog.setContentView(R.layout.dialog_canceled_theme);
         Button close = dialog.findViewById(R.id.closeButton);
         close.setOnClickListener(view -> {
             cancelEvent(eventId, position);

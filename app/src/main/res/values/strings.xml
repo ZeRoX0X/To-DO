@@ -19,5 +19,6 @@
     <string name="confirmation">Completed the task!..</string>
     <string name="sureToMarkAsComplete">Are you sure you want to mark this event as completed.</string>
     <string name="MarkAsCanceled">Are you sure you want to mark this event as canceled.</string>
-    <string name="congrats">Congrats!... You have completed the event successfully..</string>
+    <string name="congrats">Congrats!… You have completed the event successfully..</string>
+    <string name="disappointment">Don\'t Worry!… You can reschedule later..</string>
 </resources>
