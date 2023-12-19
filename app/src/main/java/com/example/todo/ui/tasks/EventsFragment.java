@@ -1,6 +1,7 @@
 package com.example.todo.ui.tasks;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
@@ -25,7 +25,7 @@ import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
 
 import com.example.todo.databinding.FragmentTasksBinding;
-import com.example.todo.ui.EventAdapter;
+import com.example.todo.adapter.EventAdapter;
 
 
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class EventsFragment extends Fragment {
         cancelledAdapter = new EventAdapter(getActivity(), canceledappointments);
         recyclerView2.setAdapter(cancelledAdapter);
 
-        TextView comletedEventsTextView = root.findViewById(R.id.completed_count);
+        TextView completedEventsTextView = root.findViewById(R.id.completed_count);
         TextView canceledEventsTextView = root.findViewById(R.id.canceled_count);
 
         // Get the ImageView from the layout
@@ -84,6 +84,7 @@ public class EventsFragment extends Fragment {
         // Get the drawable object from the resource ID
         Drawable drawableLike = ContextCompat.getDrawable(getContext (), R.drawable.like_emoji);
         Drawable drawableDislike = ContextCompat.getDrawable(getContext (), R.drawable.dislike_emoji);
+        Drawable drawableNeutral = ContextCompat.getDrawable(getContext (), R.drawable.neutral_emoji);
 
         // Observe the list of appointments in the viewmodel using the observe method
         // Pass the fragment as the lifecycle owner and a lambda expression as the observer
@@ -93,7 +94,49 @@ public class EventsFragment extends Fragment {
                 // Pass the list to the adapter
                 completedAdapter.setAppointments(appointments1);
                 int completedEvents = completedAdapter.getItemCount();
-                comletedEventsTextView.setText(String.valueOf(completedEvents));
+                completedEventsTextView.setText(String.valueOf(completedEvents));
+
+                // Get the completed events count from the completedEventsTextView
+                String input = canceledEventsTextView.getText().toString();
+
+                // Declare an int variable to store the parsed value
+                int canceledEvents;
+
+                // Check if the input is null or empty
+                if (input == null || input.isEmpty()) {
+                    // Handle the null or empty case
+
+                    canceledEvents = 0; // Set a default value
+                } else {
+                    // Try to parse the input as an int
+                    try {
+                        canceledEvents = Integer.parseInt(input);
+                        // The parsing was successful
+                        // You can use the completedEvents variable as an int
+                    } catch (NumberFormatException e) {
+                        // The parsing failed
+                        // Handle the exception
+
+                        canceledEvents = 0; // Set a default value
+                    }
+                }
+
+                if (completedEvents > canceledEvents) {
+                    // Show a happy emoji
+
+
+                    imageView.setImageDrawable(drawableLike);
+
+                } else if (completedEvents < canceledEvents) {
+                    // Show a sad emoji
+
+
+                    imageView.setImageDrawable(drawableDislike);
+                }else{
+                    // Show a neutral emoji
+                    imageView.setImageDrawable(drawableNeutral);
+
+                }
 
 
 
@@ -113,9 +156,9 @@ public class EventsFragment extends Fragment {
                 // Get the item count from the adapter
                 int canceledEvents = cancelledAdapter.getItemCount();
                 canceledEventsTextView.setText(String.valueOf(canceledEvents));
+
                 // Get the completed events count from the completedEventsTextView
-                // Get the text content of the comletedEventsTextView as a String
-                String input = comletedEventsTextView.getText().toString();
+                String input = completedEventsTextView.getText().toString();
 
                // Declare an int variable to store the parsed value
                 int completedEvents;
@@ -141,16 +184,18 @@ public class EventsFragment extends Fragment {
 
                 if (completedEvents > canceledEvents) {
                     // Show a happy emoji
-                    //Set the drawable object as the content of the ImageView
-                    imageView.setVisibility(View.VISIBLE);
+
+
                     imageView.setImageDrawable(drawableLike);
 
                 } else if (completedEvents < canceledEvents) {
                     // Show a sad emoji
-                    imageView.setVisibility(View.VISIBLE);
+
 
                     imageView.setImageDrawable(drawableDislike);
                 }else{
+                    // Show a neutral emoji
+                    imageView.setImageDrawable(drawableNeutral);
 
                 }
 

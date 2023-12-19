@@ -36,7 +36,7 @@ public class EventsViewModel extends ViewModel {
     // A method to get the LiveData object for completed appointments
     public LiveData<List<Appointment>> getCompletedAppointments(SQLiteDatabase db) {
         // Load the appointments from the DAO with the status "completed"
-        loadAppointments("completed", db);
+        loadAppointments("Completed", db);
         // Return the LiveData object
         return completedAppointments;
     }
@@ -44,7 +44,7 @@ public class EventsViewModel extends ViewModel {
     // A method to get the LiveData object for cancelled appointments
     public LiveData<List<Appointment>> getCancelledAppointments(SQLiteDatabase db) {
         // Load the appointments from the DAO with the status "canceled"
-        loadAppointments("canceled", db);
+        loadAppointments("Canceled", db);
         // Return the LiveData object
         return cancelledAppointments;
     }
@@ -64,9 +64,9 @@ public class EventsViewModel extends ViewModel {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (status.equals("completed")) {
+                        if (status.equals("Completed")) {
                             completedAppointments.setValue(appointmentList);
-                        } else if (status.equals("canceled")) {
+                        } else if (status.equals("Canceled")) {
                             cancelledAppointments.setValue(appointmentList);
                         }
                     }

@@ -63,6 +63,6 @@ public class DueEventsViewModel extends ViewModel {
 
     // A method to get the done appointments
     public LiveData<List<Appointment>> getDueEvents(SQLiteDatabase db) {
-        return getAppointments("pending", db);
+        return getAppointments("Pending", db);
     }
 }

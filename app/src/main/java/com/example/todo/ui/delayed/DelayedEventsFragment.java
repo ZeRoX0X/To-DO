@@ -18,8 +18,8 @@ import com.example.todo.R;
 import com.example.todo.data.DBHelper;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
-import com.example.todo.databinding.FragmentDelayedTasksBinding;
-import com.example.todo.ui.EventAdapter;
+import com.example.todo.databinding.FragmentDelayedEventsBinding;
+import com.example.todo.adapter.EventAdapter;
 
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DelayedEventsFragment extends Fragment {
 
-    private FragmentDelayedTasksBinding binding;
+    private FragmentDelayedEventsBinding binding;
     private RecyclerView recyclerView;
     private EventAdapter adapter;
     private DelayedEventViewModel DelayedEventViewModel;
@@ -40,7 +40,7 @@ public class DelayedEventsFragment extends Fragment {
         // Pass the fragment as the scope and a factory that provides the AppointmentDAO as a parameter
         DelayedEventViewModel = new ViewModelProvider(this, new DelayedEventsFragment.DelayedTasksViewModelFactory(new AppointmentDAO(getActivity()))).get(DelayedEventViewModel.class);
 
-        binding = FragmentDelayedTasksBinding.inflate(inflater, container, false);
+        binding = FragmentDelayedEventsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 

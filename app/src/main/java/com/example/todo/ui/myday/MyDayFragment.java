@@ -19,7 +19,7 @@ import com.example.todo.data.DBHelper;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
 import com.example.todo.databinding.FragmentMyDayBinding;
-import com.example.todo.ui.EventAdapter;
+import com.example.todo.adapter.EventAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

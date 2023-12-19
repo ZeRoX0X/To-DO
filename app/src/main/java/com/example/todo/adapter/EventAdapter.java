@@ -1,10 +1,12 @@
-package com.example.todo.ui;
+package com.example.todo.adapter;
 
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.activity.NewEventActivity;
@@ -80,7 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         Appointment appointment = appointments.get(position);
 
         // Check the status of the appointment and return the corresponding view type
-           if (appointment.getStat().equals("pending")) {
+           if (appointment.getStat().equals("Pending")) {
             return PENDING;
         }
 
@@ -102,17 +105,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         // Declare a view variable to store the item view
         View itemView;
 
-        // Use a switch statement to check the view type and inflate the corresponding layout
-        switch (viewType) {
-            case PENDING:
-                // Inflate the layout for done appointments
-                itemView = inflater.inflate(R.layout.event_item_pending, parent, false);
-            break;
-            default:
-                // Inflate the default layout
-                itemView = inflater.inflate(R.layout.event_item, parent, false);
-                break;
-        }
+        itemView = inflater.inflate(R.layout.event_item, parent, false);
 
         // Return a new ViewHolder object with the item view
         return new AppointmentViewHolder(itemView);
@@ -147,8 +140,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         switch (viewType) {
             case PENDING:
 
+                Drawable drawableMore = ContextCompat.getDrawable(context, R.drawable.more);
+                holder.imageViewOptions.setBackground(drawableMore);
 
-                holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position));
+
+                holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position, false));
 
                 holder.textViewMonthName.setText(monthName);
                 holder.textViewDayName.setText(dayName);
@@ -166,6 +162,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
                 break;
 
             default:
+                Drawable drawableDump = ContextCompat.getDrawable(context, R.drawable.dump);
+                holder.imageViewOptions.setBackground(drawableDump);
+                holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position, true));
 
 
                 holder.textViewMonthName.setText(monthName);
@@ -195,38 +194,64 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         notifyDataSetChanged();
     }
 
-    public void showPopUpMenu(View view, int position) {
+    public void showPopUpMenu(View view, int position, boolean onlyDelete) {
         final Appointment appointment = appointments.get(position);
-        PopupMenu popupMenu = new PopupMenu(context, view);
+        if (onlyDelete) {
+
+            AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
+            deleteAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.sureToDelete).
+                    setPositiveButton(R.string.yes, (dialog, which) -> {
+                        deleteEvent(position);
+                    })
+                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
+            AlertDialog dialog = deleteAlertDialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
+
+        } else{
+            PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.menu.options_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
+
+
             int id = item.getItemId();
             if (id == R.id.menuDelete) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
-                alertDialogBuilder.setTitle(R.string.delete_confirmation).setMessage(R.string.sureToDelete).
+                AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
+                deleteAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.sureToDelete).
                         setPositiveButton(R.string.yes, (dialog, which) -> {
                             deleteEvent(position);
                         })
-                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
+                AlertDialog dialog = deleteAlertDialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
+
             } else if (id == R.id.menuUpdate) {
                 updateEvent(position);
             } else if (id == R.id.menuComplete) {
-                AlertDialog.Builder completeAlertDialog = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
+                AlertDialog.Builder completeAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
                 completeAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.sureToMarkAsComplete).
                         setPositiveButton(R.string.yes, (dialog, which) -> showCompleteDialog(appointment.getId(), position))
-                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
+                AlertDialog dialog = completeAlertDialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
 
-            }else if (id == R.id.menuCancel) {
-                AlertDialog.Builder cancelAlertDialog = new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
+            } else if (id == R.id.menuCancel) {
+                AlertDialog.Builder cancelAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
                 cancelAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.MarkAsCanceled).
                         setPositiveButton(R.string.yes, (dialog, which) -> showCancelDialog(appointment.getId(), position))
-                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
+                AlertDialog dialog = cancelAlertDialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
 
             }
 
             return false;
         });
         popupMenu.show();
+    }
     }
     public void showCompleteDialog(int eventId, int position) {
         Dialog dialog = new Dialog(context, R.style.Theme_ToDO);
@@ -279,7 +304,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
 
     private void completeEvent(int eventId, int position){
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
-        int rows = appointmentDAO.updateAppointmentStatus(eventId, "completed");
+        int rows = appointmentDAO.updateAppointmentStatus(eventId, "Completed");
         appointments.remove(position);
         // Notify the adapter that the data has changed
         notifyDataSetChanged();
@@ -287,7 +312,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
     }
     private void cancelEvent(int eventId, int position){
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
-        int rows = appointmentDAO.updateAppointmentStatus(eventId, "canceled");
+        int rows = appointmentDAO.updateAppointmentStatus(eventId, "Canceled");
         appointments.remove(position);
         // Notify the adapter that the data has changed
         notifyDataSetChanged();

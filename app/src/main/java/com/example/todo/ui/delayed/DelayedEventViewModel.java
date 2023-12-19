@@ -64,6 +64,6 @@ public class DelayedEventViewModel extends ViewModel {
 
     // A method to get the done appointments
     public LiveData<List<Appointment>> getDelayedEvents(SQLiteDatabase db) {
-        return getAppointments("delayed", db);
+        return getAppointments("Delayed", db);
     }
 }
