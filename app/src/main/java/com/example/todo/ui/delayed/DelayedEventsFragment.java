@@ -58,7 +58,7 @@ public class DelayedEventsFragment extends Fragment {
         dbHelper = new DBHelper(getActivity());
         db = dbHelper.getReadableDatabase();
 
-        /*DelayedEventViewModel.getAppointments();*/
+
         // Observe the list of appointments in the viewmodel using the observe method
         // Pass the fragment as the lifecycle owner and a lambda expression as the observer
         DelayedEventViewModel.getDelayedEvents(db).observe(getViewLifecycleOwner(), appointments -> {
