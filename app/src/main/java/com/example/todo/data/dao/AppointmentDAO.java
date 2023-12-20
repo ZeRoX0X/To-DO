@@ -247,7 +247,7 @@ public class AppointmentDAO {
         String query = "SELECT * FROM " + DBHelper.TABLE_APPOINTMENT + " a " +
                 "INNER JOIN " + DBHelper.TABLE_AGENT + " b ON a." + DBHelper.APPOINTMENT_AGENT_ID + " = b." + DBHelper.AGENT_ID + " " +
                 "INNER JOIN " + DBHelper.TABLE_DEPENDENCY + " c ON a." + DBHelper.APPOINTMENT_DEPENDENCY_ID + " = c." + DBHelper.DEPENDENCY_ID + " " +
-                "WHERE date("+ DBHelper.APPOINTMENT_START_DATETIME +") = date('now', 'localtime') AND a." + DBHelper.APPOINTMENT_STAT + " = 'pending'";
+                "WHERE date("+ DBHelper.APPOINTMENT_START_DATETIME +") = date('now', 'localtime') AND a." + DBHelper.APPOINTMENT_STAT + " = 'Pending'";
 
         // Execute the query and get the cursor'
         Cursor cursor = db.rawQuery(query, null);
