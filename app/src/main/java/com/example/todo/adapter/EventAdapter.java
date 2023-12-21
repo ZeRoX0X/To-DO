@@ -4,7 +4,6 @@ package com.example.todo.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,8 +21,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todo.activity.NewEventActivity;
 import com.example.todo.R;
+import com.example.todo.activity.NewEventActivity;
 import com.example.todo.data.dao.AgentDAO;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.dao.DependencyDAO;
@@ -74,6 +73,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
     }
     // Define constants for the view types
     private static final int PENDING = 1;
+    private static final int DONE = 2;
 
 
     // Override the getItemViewType method to return the view type based on the appointment status
@@ -85,9 +85,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         // Check the status of the appointment and return the corresponding view type
            if (appointment.getStat().equals("Pending")) {
             return PENDING;
-        }
+        } else if (appointment.getStat().equals("Completed")) {
 
-        else {
+               return DONE;
+           } else {
             // If the status is not done or cancelled, return a default view type
             return super.getItemViewType(position);
         }
@@ -136,49 +137,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         String time = ldt.format(DateTimeFormatter.ofPattern("HH:mm"));
 
 
-        // Use a switch statement to check the view type and bind the data accordingly
-        switch (viewType) {
-            case PENDING:
 
-                Drawable drawableMore = ContextCompat.getDrawable(context, R.drawable.more);
-                holder.imageViewOptions.setBackground(drawableMore);
+        if (viewType == PENDING) {
+            Drawable drawableMore = ContextCompat.getDrawable(context, R.drawable.more);
+            holder.imageViewOptions.setBackground(drawableMore);
+            holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position, false));
 
-
-                holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position, false));
-
-                holder.textViewMonthName.setText(monthName);
-                holder.textViewDayName.setText(dayName);
-                holder.textViewDayNumber.setText(String.valueOf(dayNumber));
-                holder.textViewTime.setText(time);
-                holder.textViewStat.setText(appointment.getStat());
-                holder.textViewAgentName.setText(appointment.getAgent_name());
-                holder.textViewAgentCategory.setText(appointment.getAgent_category());
-
-                holder.textViewDependencyName.setText(appointment.getDependency_name());
-                holder.textViewDependencyCategory.setText(appointment.getDependency_category());
-
-
-
-                break;
-
-            default:
-                Drawable drawableDump = ContextCompat.getDrawable(context, R.drawable.dump);
-                holder.imageViewOptions.setBackground(drawableDump);
-                holder.imageViewOptions.setOnClickListener(view -> showPopUpMenu(view, position, true));
-
-
-                holder.textViewMonthName.setText(monthName);
-                holder.textViewDayName.setText(dayName);
-                holder.textViewDayNumber.setText(String.valueOf(dayNumber));
-                holder.textViewTime.setText(time);
-                holder.textViewStat.setText(appointment.getStat());
-                holder.textViewAgentName.setText(appointment.getAgent_name());
-                holder.textViewAgentCategory.setText(appointment.getAgent_category());
-
-                holder.textViewDependencyName.setText(appointment.getDependency_name());
-                holder.textViewDependencyCategory.setText(appointment.getDependency_category());
-                break;
         }
+        holder.textViewMonthName.setText(monthName);
+        holder.textViewDayName.setText(dayName);
+        holder.textViewDayNumber.setText(String.valueOf(dayNumber));
+        holder.textViewTime.setText(time);
+        holder.textViewStat.setText(appointment.getStat());
+        holder.textViewAgentName.setText(appointment.getAgent_name());
+        holder.textViewAgentCategory.setText(appointment.getAgent_category());
+        holder.textViewDependencyName.setText(appointment.getDependency_name());
+        holder.textViewDependencyCategory.setText(appointment.getDependency_category());
     }
 
     // Override the getItemCount method to return the size of the list of appointments
@@ -196,19 +170,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
 
     public void showPopUpMenu(View view, int position, boolean onlyDelete) {
         final Appointment appointment = appointments.get(position);
-        if (onlyDelete) {
 
-            AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
-            deleteAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.sureToDelete).
-                    setPositiveButton(R.string.yes, (dialog, which) -> {
-                        deleteEvent(position);
-                    })
-                    .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
-            AlertDialog dialog = deleteAlertDialog.show();
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
-
-        } else{
             PopupMenu popupMenu = new PopupMenu(context, view);
         popupMenu.getMenuInflater().inflate(R.menu.options_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
@@ -217,14 +179,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
             int id = item.getItemId();
             if (id == R.id.menuDelete) {
                 AlertDialog.Builder deleteAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
-                deleteAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.sureToDelete).
+                deleteAlertDialog.setTitle(R.string.confirmation_delete).setMessage(R.string.sureToDelete).
                         setPositiveButton(R.string.yes, (dialog, which) -> {
                             deleteEvent(position);
                         })
-                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
-                AlertDialog dialog = deleteAlertDialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
+                        .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel()).show();
+
 
             } else if (id == R.id.menuUpdate) {
                 updateEvent(position);
@@ -234,24 +194,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
                         setPositiveButton(R.string.yes, (dialog, which) -> showCompleteDialog(appointment.getId(), position))
                         .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
                 AlertDialog dialog = completeAlertDialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
+
 
             } else if (id == R.id.menuCancel) {
                 AlertDialog.Builder cancelAlertDialog = new AlertDialog.Builder(context, R.style.Theme_ToDO_Dialog);
-                cancelAlertDialog.setTitle(R.string.confirmation).setMessage(R.string.MarkAsCanceled).
+                cancelAlertDialog.setTitle(R.string.confirmation_cancel).setMessage(R.string.MarkAsCanceled).
                         setPositiveButton(R.string.yes, (dialog, which) -> showCancelDialog(appointment.getId(), position))
                         .setNegativeButton(R.string.no, (dialog, which) -> dialog.cancel());
                 AlertDialog dialog = cancelAlertDialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE);
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLUE);
+
 
             }
 
             return false;
         });
         popupMenu.show();
-    }
+
     }
     public void showCompleteDialog(int eventId, int position) {
         Dialog dialog = new Dialog(context, R.style.Theme_ToDO);
@@ -291,8 +249,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
             Toast.makeText(context, "Appointment deleted successfully", Toast.LENGTH_SHORT).show();
             // Remove the appointment from the list
             appointments.remove(position);
-            // Notify the adapter that the data has changed
-            notifyDataSetChanged();
+            // Notify the observers that an item has been removed
+            notifyItemRemoved(position);
         } else {
             // Show an error message
             Toast.makeText(context, "Failed to delete appointment", Toast.LENGTH_SHORT).show();
@@ -306,16 +264,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.AppointmentV
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
         int rows = appointmentDAO.updateAppointmentStatus(eventId, "Completed");
         appointments.remove(position);
-        // Notify the adapter that the data has changed
-        notifyDataSetChanged();
+        // Notify the observers that an item has been removed
+        notifyItemRemoved(position);
         
     }
     private void cancelEvent(int eventId, int position){
         AppointmentDAO appointmentDAO = new AppointmentDAO(context);
         int rows = appointmentDAO.updateAppointmentStatus(eventId, "Canceled");
         appointments.remove(position);
-        // Notify the adapter that the data has changed
-        notifyDataSetChanged();
+        // Notify the observers that an item has been removed
+        notifyItemRemoved(position);
 
     }
 
