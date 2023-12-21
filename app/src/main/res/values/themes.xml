@@ -13,6 +13,24 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.ToDO2" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorSecondaryVariant">@color/green</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize your theme here. -->
+    </style>
+
 
     <style name="Theme.ToDO.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -28,11 +46,93 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="Theme.ToDO.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+      <!--  <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:negativeButtonText">no</item>
+    <item name="android:positiveButtonText">yes</item>
+        <item name="android:textColor">@color/colorAccent</item>-->
+
+
     </style>
+    <style name="MyToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:popupBackground">@color/green</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
+    </style>
+    <style name="MyTheme" parent="Theme.MaterialComponents">
+
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+
+
+    <style name="BlueTheme" parent="Base.AppTheme.BlueTheme"/>
+    <style name="Base.AppTheme.BlueTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#EB0629A7</item>
+        <item name="colorPrimaryDark">#CE4885ED</item>
+        <item name="colorAccent">@color/button_normal_color1</item>
+        <item name="android:windowBackground">#E94D71AF</item>
+        <item name="colorButtonNormal">#0B2EAB</item>
+        <item name="android:statusBarColor">#C60E2FA6</item>
+        <item name="colorSecondaryVariant">#C60E2FA6</item>
+        <item name="android:itemBackground">#C60E2FA6</item>
+
+    </style>
+
+    <style name="BlueThemeNoSound" parent="Base.AppTheme.BlueTheme">
+    <item name="android:soundEffectsEnabled">false</item>
+    </style>
+
+
+
+
+
+    <color name="design_default_color_error1">#FF5722</color>
+    <color name="colorPrimaryDark1">#F44336</color>
+    <color name="colorAccent1">#E91E63</color>
+    <color name="design_default_color_error2">#0AE757</color>
+    <color name="colorPrimaryDark2">#68BD51</color>
+    <color name="colorAccent2">#025018</color>
+    <color name="background_color1">#00BCD4</color>
+    <color name="button_normal_color1">#041B6D</color>
+
+    <style name="RedTheme" parent="Base.AppTheme.RedTheme"/>
+    <style name="Base.AppTheme.RedTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/design_default_color_error1</item>
+        <item name="colorPrimaryDark">#BDC93A30</item>
+        <item name="colorAccent">#800909</item>
+        <item name="android:windowBackground">@color/noode</item>
+        <item name="colorButtonNormal">#BE1939</item>
+        <item name="android:itemBackground">#EBE34E1F</item>
+        <item name="android:statusBarColor">#EBE34E1F</item>
+        <item name="colorSecondaryVariant">#EBE34E1F</item>
+
+    </style>
+    <style name="RedThemeNoSound" parent="Base.AppTheme.RedTheme">
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
+
+    <style name="GreenTheme" parent="Base.AppTheme.GreenTheme"/>
+    <style name="Base.AppTheme.GreenTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#EC7DD364</item>
+        <item name="colorPrimaryDark">#AF4C9838</item>
+        <item name="colorAccent">@color/colorPrimaryDark2</item>
+        <item name="android:windowBackground">#CAF5BE</item>
+        <item name="colorButtonNormal">#51D047</item>
+        <item name="android:statusBarColor">#EC7DD364</item>
+        <item name="colorSecondaryVariant">#EC7DD364</item>
+        <item name="android:itemBackground">#E359A345</item>
+    </style>
+    <style name="GreenThemeNoSound" parent="Base.AppTheme.GreenTheme">
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
+
+
 </resources>

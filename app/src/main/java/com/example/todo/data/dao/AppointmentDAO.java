@@ -11,9 +11,7 @@ import com.example.todo.data.models.Appointment;
 import com.example.todo.data.models.Dependency;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 // AppointmentDAO class
 public class AppointmentDAO {
@@ -40,7 +38,7 @@ public class AppointmentDAO {
         // Begin a transaction
         db.beginTransaction();
 
-        int id = -1;
+        int id;
         try {
 
 
@@ -84,9 +82,9 @@ public class AppointmentDAO {
     public boolean updateAppointment(Appointment appointment, Dependency dependency, Agent agent, DependencyDAO dependencyDAO, AgentDAO agentDAO) {
         // Get a writable database
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        int appointment_rows = -1;
-        int dependency_rows = -1;
-        int agent_rows = -1;
+        int appointment_rows;
+        int dependency_rows;
+        int agent_rows;
         // Begin a transaction
         db.beginTransaction();
         try {
@@ -113,7 +111,7 @@ public class AppointmentDAO {
 
 
         // Return the number of affected rows
-        return (agent_rows>=0) && (dependency_rows >= 0) && (appointment_rows >= 0);
+        return (agent_rows > 0) && (dependency_rows > 0) && (appointment_rows > 0);
     }
     public int updateAppointmentStatus(int id, String status) {
         // Get a writable database

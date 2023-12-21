@@ -1,8 +1,8 @@
 package com.example.todo.data;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import androidx.annotation.Nullable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String APPOINTMENT_AGENT_ID = "appointment_agent_id";
 
     // Public constructor
-    public DBHelper(@Nullable Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
@@ -134,34 +134,34 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // Insert 4 pending appointments
         db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
-                "VALUES ('"+datetime1+"', '2023-12-14 17:00:00', 'pending', 1, 1), " +
-                "('"+datetime2+"', '2023-12-14 18:00:00', 'pending', 2, 2), " +
-                "('"+datetime3+"', '2023-12-14 19:00:00', 'pending', 3, 3), " +
-                "('"+datetime4+"', '2023-12-14 20:00:00', 'pending', 4, 4);");
+                "VALUES ('"+datetime1+"', '2023-12-14 17:00:00', 'Pending', 1, 1), " +
+                "('"+datetime2+"', '2023-12-14 18:00:00', 'Pending', 2, 2), " +
+                "('"+datetime3+"', '2023-12-14 19:00:00', 'Pending', 3, 3), " +
+                "('"+datetime4+"', '2023-12-14 20:00:00', 'Pending', 4, 4);");
 
         // Insert 4 completed appointments
         db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
-                "VALUES ('2023-12-15 09:00:00', '2023-12-14 10:00:00', 'completed', 5, 5), " +
-                "('2023-12-15 10:00:00', '2023-12-14 09:00:00', 'completed', 6, 6), " +
-                "('2023-12-15 11:00:00', '2023-12-14 12:00:00', 'completed', 7, 7), " +
-                "('2023-12-15 12:00:00', '2023-12-14 11:00:00', 'completed', 8, 8);");
+                "VALUES ('2023-12-15 09:00:00', '2023-12-14 10:00:00', 'Completed', 5, 5), " +
+                "('2023-12-15 10:00:00', '2023-12-14 09:00:00', 'Completed', 6, 6), " +
+                "('2023-12-15 11:00:00', '2023-12-14 12:00:00', 'Completed', 7, 7), " +
+                "('2023-12-15 12:00:00', '2023-12-14 11:00:00', 'Completed', 8, 8);");
 
         // Insert 4 canceled appointments
         db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
-                "VALUES ('2023-12-15 13:00:00', '2023-12-14 14:00:00', 'canceled', 9, 9), " +
-                "('2023-12-15 14:00:00', '2023-12-14 13:00:00', 'canceled', 10, 10), " +
-                "('2023-12-15 15:00:00', '2023-12-14 16:00:00', 'canceled', 11, 11), " +
-                "('2023-12-15 16:00:00', '2023-12-14 15:00:00', 'canceled', 12, 12);");
+                "VALUES ('2023-12-15 13:00:00', '2023-12-14 14:00:00', 'Canceled', 9, 9), " +
+                "('2023-12-15 14:00:00', '2023-12-14 13:00:00', 'Canceled', 10, 10), " +
+                "('2023-12-15 15:00:00', '2023-12-14 16:00:00', 'Canceled', 11, 11), " +
+                "('2023-12-15 16:00:00', '2023-12-14 15:00:00', 'Canceled', 12, 12);");
 
 
 
 
        // Insert 4 delayed appointments
         db.execSQL("INSERT INTO " + TABLE_APPOINTMENT + " (" + APPOINTMENT_START_DATETIME + ", " + APPOINTMENT_REMINDER_DATETIME + ", " + APPOINTMENT_STAT + ", " + APPOINTMENT_DEPENDENCY_ID + ", " + APPOINTMENT_AGENT_ID + ") " +
-                "VALUES ('2023-12-15 21:00:00', '2023-12-14 21:00:00', 'delayed', 13, 13), " +
-                "('2023-12-15 22:00:00', '2023-12-14 22:00:00', 'delayed', 14, 14), " +
-                "('2023-12-15 23:00:00', '2023-12-14 23:00:00', 'delayed', 15, 15), " +
-                "('2023-12-16 00:00:00', '2023-12-15 00:00:00', 'delayed', 16, 16);");
+                "VALUES ('2023-12-15 21:00:00', '2023-12-14 21:00:00', 'Delayed', 13, 13), " +
+                "('2023-12-15 22:00:00', '2023-12-14 22:00:00', 'Delayed', 14, 14), " +
+                "('2023-12-15 23:00:00', '2023-12-14 23:00:00', 'Delayed', 15, 15), " +
+                "('2023-12-16 00:00:00', '2023-12-15 00:00:00', 'Delayed', 16, 16);");
 
 
     }

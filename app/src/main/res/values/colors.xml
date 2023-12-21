@@ -14,6 +14,11 @@
     <color name="colorAccent">#4885ed</color>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
+    <color name="noode">#EC9A94</color>
+    <color name="lightGreen">#AAE993</color>
+    <color name="GREEN1">#129408</color>
+    <color name="Text">#129408</color>
+    <color name="colorNavheader">#129408</color>
 
 
 </resources>

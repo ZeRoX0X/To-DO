@@ -1,7 +1,6 @@
 package com.example.todo.ui.tasks;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,13 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
+import com.example.todo.adapter.EventAdapter;
 import com.example.todo.data.DBHelper;
 import com.example.todo.data.dao.AppointmentDAO;
 import com.example.todo.data.models.Appointment;
-
 import com.example.todo.databinding.FragmentTasksBinding;
-import com.example.todo.adapter.EventAdapter;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +90,7 @@ public class EventsFragment extends Fragment {
             if (appointments1 != null && !appointments1.isEmpty()) {
                 // Pass the list to the adapter
                 completedAdapter.setAppointments(appointments1);
+
                 int completedEvents = completedAdapter.getItemCount();
                 completedEventsTextView.setText(String.valueOf(completedEvents));
 
@@ -155,6 +153,7 @@ public class EventsFragment extends Fragment {
                 cancelledAdapter.setAppointments(appointments2);
                 // Get the item count from the adapter
                 int canceledEvents = cancelledAdapter.getItemCount();
+
                 canceledEventsTextView.setText(String.valueOf(canceledEvents));
 
                 // Get the completed events count from the completedEventsTextView
@@ -173,7 +172,7 @@ public class EventsFragment extends Fragment {
                     try {
                         completedEvents = Integer.parseInt(input);
                         // The parsing was successful
-                        // You can use the completedEvents variable as an int
+
                     } catch (NumberFormatException e) {
                         // The parsing failed
                         // Handle the exception

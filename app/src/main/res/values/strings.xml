@@ -2,23 +2,28 @@
     <string name="app_name">To DO</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">ToDo App</string>
+    <string name="nav_header_subtitle">Manage your tasks and events</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_myday">My Day</string>
     <string name="menu_delayed">Delayed Events</string>
     <string name="menu_tasks">All Events</string>
+    <string name="menu_due">Due Events</string>
 
 
     <string name="delete_confirmation">Confirmation</string>
-    <string name="sureToDelete">Are you sure you want to delete the task</string>
-    <string name="yes">Yes</string>
+    <string name="sureToDelete">Are you sure you want to delete the event</string>
+    <string name="yes" color="@color/colorAccent">Yes</string>
     <string name="no">No</string>
-    <string name="confirmation">Completed the task!..</string>
+    <string name="confirmation">Completed the event!..</string>
+    <string name="confirmation_delete">Delete the event!..</string>
+    <string name="confirmation_cancel">Cancel the event!..</string>
     <string name="sureToMarkAsComplete">Are you sure you want to mark this event as completed.</string>
     <string name="MarkAsCanceled">Are you sure you want to mark this event as canceled.</string>
     <string name="congrats">Congrats!… You have completed the event successfully..</string>
     <string name="disappointment">Don\'t Worry!… You can reschedule later..</string>
+
+    <string name="title_activity_settings">Settings</string>
 </resources>

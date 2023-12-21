@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    android:backgroundTintMode="?attr/colorPrimary">
+
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_myday"
             android:icon="@drawable/ic_menu_bulb"
-            android:title="@string/menu_myday" />
+            android:title="@string/menu_myday"
+            />
         <item
             android:id="@+id/nav_delayed"
             android:icon="@drawable/baseline_schedule_24"
@@ -15,14 +18,11 @@
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_menu_checkmarkcircle"
-            android:title="My appointments" />
+            android:title="Completed &amp; Canceled" />
         <item
-            android:id="@+id/nav_deleted"
-            android:icon="@drawable/baseline_auto_delete_24"
-            android:title="Appointments deleted" />
-        <item
-            android:id="@+id/nav_themes"
-            android:icon="@drawable/baseline_color_lens_24"
-            android:title="Themes" />
+            android:id="@+id/nav_due"
+            android:icon="@drawable/due_task"
+            android:title="Due Events" />
+
     </group>
 </menu>

@@ -59,29 +59,29 @@
 
     <TextView
         android:id="@+id/completed_count"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
+        android:layout_width="78dp"
+        android:layout_height="28dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="135dp"
-        android:layout_marginEnd="142dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginEnd="117dp"
         android:textColor="@android:color/black"
-        android:textSize="12sp"/>
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/canceled_count"
-        android:layout_width="68dp"
-        android:layout_height="36dp"
-        android:layout_below="@id/recycler_view1"
+        android:layout_width="74dp"
+        android:layout_height="26dp"
+        android:layout_below="@+id/recycler_view1"
+
+
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="67dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginBottom="342dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="134dp"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="12sp"
-        android:text="Cancelled count:" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/status_emoji"

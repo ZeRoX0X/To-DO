@@ -5,23 +5,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class Receiver extends BroadcastReceiver {
-    @Override
+
     public void onReceive(Context context, Intent intent) {
-        // Create a notification builder and set the title, text, icon, etc.
+        // Create a notification builder and set the title, text, icon.
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "taskade_id")
                 .setSmallIcon(R.drawable.ic_menu_bell)
                 .setContentTitle("Reminder")
                 .setContentText("Your event is starting soon")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        Log.println(Log.ASSERT, "reciver", "Receiver Received");
 
         // Create a notification manager and show the notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

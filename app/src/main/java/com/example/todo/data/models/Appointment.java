@@ -1,14 +1,6 @@
 package com.example.todo.data.models;
 
-import java.io.Serializable;
-
-
 public class Appointment {
-
-
-
-
-
     // Fields
     private int id;
     private String start_datetime;

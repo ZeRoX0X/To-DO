@@ -3,6 +3,7 @@ package com.example.todo.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        SettingsActivity.ThemeUtility.applyTheme(this);  // Apply the theme here
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setSupportActionBar(binding.appBarMain.toolbar);
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -45,13 +48,17 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_myday, R.id.nav_delayed, R.id.nav_tasks)
+                R.id.nav_myday, R.id.nav_delayed, R.id.nav_tasks, R.id.nav_due)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,5 +72,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {// User chooses the "Settings" item. Show the app settings UI.
+            // Create an intent to start the new activity
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            // Start the new activity
+            startActivity(intent);
+            return true;
+        }// The user's action isn't recognized.
+        // Invoke the superclass to handle it.
+        return super.onOptionsItemSelected(item);
     }
 }

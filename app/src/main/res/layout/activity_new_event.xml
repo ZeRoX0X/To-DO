@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="660dp"
+        android:layout_height="630dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
@@ -22,7 +22,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:hint="new appointment"
+            android:hint="Who's the event with ..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -37,7 +37,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:hint="The appointment is with ..."
+            android:hint="What realationship do you both have..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -51,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:hint="Number"
+            android:hint="Add his phone Number..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -65,7 +65,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:hint="Dependency Name ..."
+            android:hint="Where the event is going to be..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -79,7 +79,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:ems="10"
-            android:hint="Dependency Name ..."
+            android:hint="What is the type of the place..."
             android:inputType="text"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -107,7 +107,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
-
+            android:background="?attr/colorButtonNormal"
             app:srcCompat="@drawable/baseline_edit_calendar_24" />
 
         <TextView
@@ -119,6 +119,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:ems="10"
+
             android:hint="Time"
             android:minHeight="48dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -132,6 +133,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="50dp"
+            android:background="?attr/colorButtonNormal"
 
             app:srcCompat="@drawable/baseline_access_time_24" />
 
@@ -146,9 +148,8 @@
             android:ems="10"
             android:hint="Reminder Time"
             android:minHeight="48dp"
-            android:visibility="gone"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-             />
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/ReminderTimeButton"
@@ -158,6 +159,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="39dp"
             android:layout_marginEnd="50dp"
+            android:background="?attr/colorButtonNormal"
             android:visibility="gone"
             app:srcCompat="@drawable/baseline_access_time_24" />
 
@@ -168,41 +170,28 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="26dp"
-            android:layout_marginBottom="126dp"
+            android:layout_marginBottom="104dp"
             android:text="Reminder" />
 
-
-        <!--<Button
-            android:id="@+id/AppointmentReminderButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/reminder_switch"
-            android:layout_alignParentEnd="true"
-            android:textSize="16sp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="30dp"
-            android:text="Change Time"
-            android:textAllCaps="false"/>-->
 
     </RelativeLayout>
 
     <Button
         android:id="@+id/newAppointmentButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="359dp"
+        android:layout_height="66dp"
         android:layout_below="@+id/layout"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="12dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        app:cornerRadius = "40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="12dp"
         android:text="Save"
         android:textAllCaps="false"
-        android:textSize="20sp" />
-
-
+        android:textSize="15sp"
+        app:cornerRadius="40dp" />
 
 
 </RelativeLayout>

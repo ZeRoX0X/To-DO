@@ -10,47 +10,47 @@
     android:layout_height="150dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/dayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.5"
                 android:text="Tue"
-                android:layout_gravity="center"
-                android:textSize="18sp"
                 android:textColor="@android:color/black"
-                android:alpha="0.5"/>
+                android:textSize="18sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/dayNumber"
-                android:text="18"
-                android:layout_gravity="center"
-                android:textSize="24sp"
-                android:textColor="@color/colorAccent" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/monthName"
                 android:layout_gravity="center"
+                android:text="18"
+                android:textColor="?attr/colorAccent"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/monthName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.5"
                 android:text="Nov"
-                android:textSize="18sp"
                 android:textColor="@android:color/black"
-                android:alpha="0.5"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -58,15 +58,15 @@
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
             android:alpha="0.5"
-            android:background="@android:color/black"/>
+            android:background="@android:color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="0.2"
             android:orientation="vertical">
 
             <LinearLayout
@@ -76,79 +76,92 @@
 
                 <TextView
                     android:id="@+id/dependency_category"
-                    android:layout_width="0dp"
+                    android:layout_width="108dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="Dependency Category" />
+
                 <TextView
                     android:id="@+id/agent_category"
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="0.5"
+                    android:layout_width="115dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    tools:text="Agent Category"/>
+                    android:textSize="12sp"
+                    tools:text="Agent Category" />
 
-
+                <ImageView
+                    android:id="@+id/options"
+                    android:layout_width="41dp"
+                    android:layout_height="33dp"
+                    android:backgroundTint="?attr/colorButtonNormal" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/dependency_name"
-                    android:layout_width="0dp"
+                    android:layout_width="134dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
+                    android:alpha="0.9"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:alpha="0.5"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="Dependency Name" />
 
-            <TextView
-                android:id="@+id/agent_name"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:singleLine="true"
-                android:textColor="@android:color/black"
-                android:alpha="0.5"
-                android:textSize="14sp"
-                tools:text="Agent Name" />
-
+                <TextView
+                    android:id="@+id/agent_name"
+                    android:layout_width="167dp"
+                    android:layout_height="31dp"
+                    android:layout_weight="0.5"
+                    android:alpha="0.9"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    tools:text="Agent Name" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
-                android:layout_weight="0.5"
-                android:alpha="0.5"
-                android:singleLine="true"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                tools:text="10:00" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="COMPLETED"
-                android:textSize="12sp"
-                android:id="@+id/status"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp" />
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="20dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="top"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.5"
+
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="16sp"
+                    tools:text="10:00" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="67dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.5"
+                    android:paddingStart="8dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="7dp"
+                    android:text="COMPLETED"
+                    android:textAlignment="textEnd"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
         </LinearLayout>
 

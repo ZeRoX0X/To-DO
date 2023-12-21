@@ -4,13 +4,13 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,7 +34,6 @@ import com.example.todo.data.models.Agent;
 import com.example.todo.data.models.Appointment;
 import com.example.todo.data.models.Dependency;
 import com.example.todo.databinding.ActivityNewEventBinding;
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,6 +63,10 @@ public class NewEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SettingsActivity.ThemeUtility.applyTheme(this);  // Apply the theme here
+
+
         // Inflate the layout using the binding class
         binding = ActivityNewEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -99,6 +102,12 @@ public class NewEventActivity extends AppCompatActivity {
 
         Button saveButton = findViewById(R.id.newAppointmentButton);
         reminderTimeSwitch = findViewById(R.id.reminderSwitch);
+
+
+
+
+
+
         reminderTimeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +184,7 @@ public class NewEventActivity extends AppCompatActivity {
                     updateEvent(bundle);
                 } else {
 
-                    String status = "pending";
+                    String status = "Pending";
                     String start_datetime = getDateTime(appointmentTime, appointmentDate);
                     String reminder_datetime = getDateTime(reminderTime, appointmentDate);
                     String agent_name = agentName.getText().toString();
@@ -236,6 +245,7 @@ public class NewEventActivity extends AppCompatActivity {
                                 }
                                 // Get the number of milliseconds
                                 long dateInMillis = date.getTime();
+                                Log.println(Log.ASSERT, "dateInMillis", String.valueOf(dateInMillis));
                                 // Pass the dateInMillis as a long parameter to the setAlarm() method
                                 setAlarm(dateInMillis, agent_phone);
 
@@ -278,7 +288,33 @@ public class NewEventActivity extends AppCompatActivity {
 
 
 
-        appointmentDate.setText(oldStart_datetime.substring(0, 10));
+        String inputstr  = oldStart_datetime.substring(0, 10);
+
+        // Create a formatter for the input date format
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Declare a variable for the input date
+        Date inputDate = null;
+
+       // Try to parse the input date string as a Date object
+        try {
+            inputDate = inputFormat.parse(inputstr);
+        } catch (ParseException e) {
+            // Handle the exception
+            e.printStackTrace();
+
+        }
+
+      // Check if the input date is not null
+        if (inputDate != null) {
+            // Create another formatter for the output date format
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            // Format the input date as a string in the output format
+            String outputDate = outputFormat.format(inputDate);
+            appointmentDate.setText(outputDate);
+        }
+
         appointmentTime.setText(oldStart_datetime.substring(11, 16));
 
         agentName.setText(oldAgent_name);
@@ -307,7 +343,7 @@ public class NewEventActivity extends AppCompatActivity {
 
 
 
-        String status = "pending";
+        String status = "Pending";
         String start_datetime = getDateTime(appointmentTime,appointmentDate);
         String reminder_datetime = getDateTime(reminderTime, appointmentDate);
         String agent_name = agentName.getText().toString();
@@ -371,7 +407,7 @@ public class NewEventActivity extends AppCompatActivity {
                     // Pass the dateInMillis as a long parameter to the setAlarm() method
                     setAlarm(dateInMillis, agent_phone);
                 }
-                int rows = appointmentDAO.updateAppointmentStatus(oldAppointment_id, "delayed");
+                int rows = appointmentDAO.updateAppointmentStatus(oldAppointment_id, "Delayed");
                 if(rows >= 0) {
                     Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
                     // Start the new activity
@@ -407,7 +443,7 @@ public class NewEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
 
-                appointmentDate.setText(String.format("%02d/%02d/%04d", day, month + 1, year));
+                appointmentDate.setText(String.format("%02d/%02d/%04d", day, month + 1,year ));
             }
         }, year, month, day);
 
