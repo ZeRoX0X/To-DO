@@ -155,7 +155,7 @@
                     android:layout_weight="0.5"
                     android:paddingStart="8dp"
                     android:paddingTop="18dp"
-                    android:paddingEnd="20dp"
+                    android:paddingEnd="30dp"
                     android:paddingBottom="7dp"
                     android:text="COMPLETED"
                     android:textAlignment="textEnd"
